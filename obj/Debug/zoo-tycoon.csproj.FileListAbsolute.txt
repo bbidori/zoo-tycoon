@@ -7,3 +7,7 @@ G:\coding\zoo-tycoon\obj\Debug\zoo_tycoon.Properties.Resources.resources
 G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.GenerateResource.cache
 G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.exe
 G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.pdb
+G:\coding\zoo-tycoon\bin\Debug\SpriteLibrary.dll
+G:\coding\zoo-tycoon\bin\Debug\SpriteLibrary.pdb
+G:\coding\zoo-tycoon\bin\Debug\SpriteLibrary.xml
+G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CopyComplete

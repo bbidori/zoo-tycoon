@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SpriteLibrary, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\nahwa\Downloads\SpriteLibrary-1-0-6\SpriteLibrary\bin\Debug\SpriteLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -85,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dev.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoo_tileset.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
