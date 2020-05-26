@@ -1,0 +1,9 @@
+G:\coding\zoo-tycoon\bin\Debug\zoo-tycoon.exe.config
+G:\coding\zoo-tycoon\bin\Debug\zoo-tycoon.exe
+G:\coding\zoo-tycoon\bin\Debug\zoo-tycoon.pdb
+G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.csprojAssemblyReference.cache
+G:\coding\zoo-tycoon\obj\Debug\zoo_tycoon.Form1.resources
+G:\coding\zoo-tycoon\obj\Debug\zoo_tycoon.Properties.Resources.resources
+G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.GenerateResource.cache
+G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.exe
+G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.pdb
