@@ -40,7 +40,7 @@
             this.cloture1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cloture1.Location = new System.Drawing.Point(54, 59);
             this.cloture1.Name = "cloture1";
-            this.cloture1.Size = new System.Drawing.Size(495, 203);
+            this.cloture1.Size = new System.Drawing.Size(334, 133);
             this.cloture1.TabIndex = 0;
             this.cloture1.TabStop = false;
             // 

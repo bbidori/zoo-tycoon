@@ -30,8 +30,9 @@ namespace zoo_tycoon
             Animal.MovementSpeed = 30;
 
             Animal.PutBaseImageLocation(new Point(0, 0));
+            Animal.SetSize(new Size(500, 500));
 
-            
+
 
         }
 
