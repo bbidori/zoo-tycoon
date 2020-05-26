@@ -11,3 +11,16 @@ G:\coding\zoo-tycoon\bin\Debug\SpriteLibrary.dll
 G:\coding\zoo-tycoon\bin\Debug\SpriteLibrary.pdb
 G:\coding\zoo-tycoon\bin\Debug\SpriteLibrary.xml
 G:\coding\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CopyComplete
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\bin\Debug\zoo-tycoon.exe.config
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\bin\Debug\zoo-tycoon.exe
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\bin\Debug\zoo-tycoon.pdb
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\bin\Debug\SpriteLibrary.pdb
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\bin\Debug\SpriteLibrary.xml
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo-tycoon.csprojAssemblyReference.cache
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo_tycoon.Form1.resources
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo_tycoon.Properties.Resources.resources
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.GenerateResource.cache
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CoreCompileInputs.cache
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CopyComplete
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo-tycoon.exe
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\Zoo-Tycoon-Git\zoo-tycoon\obj\Debug\zoo-tycoon.pdb
