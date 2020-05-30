@@ -50,16 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="ZooTycoon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ZooTycoon.Designer.cs">
+      <DependentUpon>ZooTycoon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormInteraction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInteraction.Designer.cs">
+      <DependentUpon>FormInteraction.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ZooTycoon.resx">
+      <DependentUpon>ZooTycoon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInteraction.resx">
+      <DependentUpon>FormInteraction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -92,6 +101,51 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zoo_tileset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EnemySubL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EnemySubR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Moving_Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Moving_Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Moving_Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Moving_Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Standing_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Standing_Facing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Standing_Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Perso_Standing_Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpriteSheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Temps_Background_Farm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\transparent_Bckg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpeningFarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoo_Tycoon_Opening.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
