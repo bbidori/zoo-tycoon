@@ -14,21 +14,15 @@ namespace zoo_tycoon
 {
     public partial class ZooTycoon : Form
     {
-        SpriteController TheGameController;  //The Sprite controller that draws all our sprites
+        SpriteController TheGameController;  //Le sprite qui contrôle tous les autres sprites
 
-        //Set initial values.  When each of these time-out, we allow ourselves to check for a keypress,
-        //fire a torpedo, etc.  Start with them all as NOW, since the delay is not long at all
-        DateTime LastMovement = DateTime.UtcNow;  //The last time we checked for a keypress.
-        DateTime LastTorpedoL = DateTime.UtcNow;  //The last time the player shot left
-        DateTime LastTorpedoR = DateTime.UtcNow;  //The last time the player shot Right
-        DateTime LastTorpedoU = DateTime.UtcNow;  //The last time the player shot Up
-        DateTime LastAddItem = DateTime.UtcNow - TimeSpan.FromSeconds(1); //We want to start by adding things
-        DateTime LastHealTime = DateTime.UtcNow;
+        DateTime LastMovement = DateTime.UtcNow;  //Dernière fois qu'on a vérifié si on a appuyé une touche
+        DateTime LastAddItem = DateTime.UtcNow - TimeSpan.FromSeconds(1);
 
 
-        Sprite PlayerSub = null;   //The player sub
-        Direction LastDirection = Direction.none;  //The direction our player sub was going last
-        public Point PlayerLastLocation;
+        Sprite PlayerCharacter = null;   //Le sprite du personnage
+        Direction LastDirection = Direction.none;  //dernière direction où on allait
+        public Point PlayerLastLocation; //dernière position où on était
 
 
         bool PlayingGame = false;
@@ -40,57 +34,49 @@ namespace zoo_tycoon
         public ZooTycoon()
         {
             InitializeComponent();
-            //Set up the background.  We need to do this before making our sprite controller.
             MainDrawingArea.BackgroundImage = new Bitmap(Properties.Resources.background_zoo2, constants.BackgroundSize);
             MainDrawingArea.BackgroundImageLayout = ImageLayout.Stretch;
-
-            //Make a new sprite controller using the PictureBox
             TheGameController = new SpriteController(MainDrawingArea, DoTick);
-
-            //Load the sprites from the resources.  Only need to do this once
             loadSprites();
             PrintDirections();
 
         }
-        /// <param name="Y">The Y position on the image</param>
+        /// <summary>
+        /// Écrit une ligne passé en paramètre sur l'image d'acceuil selon la position Y qu'on lui a donné
+        /// </summary>
+        /// <param position="Y">Position Y sur l'image </param>
+        /// <param text="theText">Texte a ecrire sur l'image</param>
         void PrintOneLine(Graphics G, string theText, int Y)
         {
-            //The font to use
             Font stringFont = new Font("Consolas", 18);
-            //Figure out how big the text is, X and Y.
             SizeF Big = G.MeasureString(theText, stringFont);
-            //Find the place where to put it. Find the center of the image, then subtract half the width of the text
             int X = (MainDrawingArea.BackgroundImage.Width / 2) - (int)(Big.Width / 2);
-            //Write it twice.  First, in white (and just a little offset)
             G.DrawString(theText, stringFont, Brushes.White, X - 1, Y - 1);
-            //Then, write it in black, the main text
             G.DrawString(theText, stringFont, Brushes.Black, X, Y);
         }
 
         /// <summary>
-        /// Print the directions for the game on the image background
+        /// Imprime les directives du jeu sur le background
         /// </summary>
         void PrintDirections()
         {
-            //Make a copy of the image so we can write to it
             Image nImage = new Bitmap(Properties.Resources.Zoo_Tycoon_Opening, constants.BackgroundSize);
 
             MainDrawingArea.BackgroundImage = nImage;
-            //Print the instructions for the game on the background
             using (Graphics G = Graphics.FromImage(nImage))
             {
                 PrintOneLine(G, "Press ENTER to begin", 420);
             }
             Image nImageCopy = new Bitmap(nImage, constants.BackgroundSize);
-            //Replace the background of the image.  We need to do this so remaining badguys do not erase the text
-            //The background is what we use to write on top of the sprites when we erase them.
             if (TheGameController != null)
                 TheGameController.ReplaceOriginalImage(nImageCopy);
-            //Now, replace the foreground of the image.
             MainDrawingArea.BackgroundImage = nImage;
             MainDrawingArea.Invalidate();
         }
-        
+
+        /// <summary>
+        /// load une copie de chaque sprite possible pour qu'on puisse les duppliquer facilement
+        /// </summary>
         private void loadSprites()
         {
             //the player's character
@@ -104,58 +90,294 @@ namespace zoo_tycoon
             one.AddAnimation(Properties.Resources.Perso_Standing_Back, oImage.Width, oImage.Height); //animation 3 = standing and with it's back facing us
             one.SetSize(constants.CharacterSize);
             one.CannotMoveOutsideBox = true;
-            one.SetName(SpriteName.PlayerSub.ToString());
+            one.SetName(SpriteName.PlayerCharacter.ToString());
             one.CheckBeforeMove += PlayerCheckBeforeMovement;
 
 
-            Sprite Animal = new Sprite(new Point(0, 512), TheGameController, Properties.Resources.zoo_tileset, 32, 32, 800, 8);
-            Animal.SetName(SpriteName.Ours.ToString());
+            one = new Sprite(new Point(0, 512), TheGameController, Properties.Resources.zoo_tileset, 32, 32, 800, 8);
+            one.SetName(SpriteName.Ours.ToString());
 
-            Animal.AutomaticallyMoves = false;
-            Animal.CannotMoveOutsideBox = true;
-            Animal.SetSpriteDirectionDegrees(180);
-            Animal.MovementSpeed = 0;
-            Animal.SetSize(constants.OursSize);
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSpriteDirectionDegrees(180);
+            one.MovementSpeed = 0;
+            one.SetSize(constants.OursSize);
             //////////////////////////////////////////////////////////
-            Sprite cloture = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
-            cloture.SetName(SpriteName.Cloture.ToString());
-            cloture.AutomaticallyMoves = false;
-            cloture.CannotMoveOutsideBox = true;
-            cloture.SetSize(constants.ClotureSize);
+            one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
+            one.SetName(SpriteName.Cloture1.ToString());
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.ClotureSize);
+
+            one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
+            one.SetName(SpriteName.Cloture2.ToString());
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.ClotureSize);
+
+            one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
+            one.SetName(SpriteName.Cloture3.ToString());
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.ClotureSize);
+
+            one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
+            one.SetName(SpriteName.Cloture4.ToString());
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.ClotureSize);
+
+            oImage = Properties.Resources.VisiteurMale;
+            one = new Sprite(new Point(0, 0), TheGameController, oImage, (oImage.Width / 3), oImage.Height, 400, 3); //animation 0 = standing and facing us
+            one.SetName(SpriteName.VisiteurM.ToString());
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.VisiteurSize);
+            one.CheckBeforeMove += VisiteurCheckBeforeMove;
+
+            oImage = Properties.Resources.VisiteurFemale;
+            one = new Sprite(new Point(0, 0), TheGameController, oImage, (oImage.Width / 3), oImage.Height, 400, 3); //animation 0 = standing and facing us
+            one.SetName(SpriteName.VisiteurF.ToString());
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.VisiteurSize);
+            one.CheckBeforeMove += VisiteurCheckBeforeMove;
+        }
+        /// <summary>
+        /// Pour les visiteurs, vérifie avant de faire chaque mouvement 
+        /// </summary>
+        /// <remarks>NOTE: on aurait pu faire plus de chemins pour les visiteurs 
+        /// mais par manque de temps, on a configuré qu'un seul itinéraire.</remarks>
+        /// <param name="Sender">The sprite that is moving</param>
+        /// <param name="e"></param>
+        private void VisiteurCheckBeforeMove(object Sender, SpriteEventArgs e)
+        {
+
+            if (!(Sender is Sprite)) return;
+            Sprite visiteur = (Sprite)Sender;
+            VisitorSpritePayload visitorTSP;
+            //si le payload n'est pas valide, on le détruit.
+            if (!(visiteur.payload is VisitorSpritePayload))
+            {
+                visiteur.Destroy(); //It needs to be killed
+                return;
+            }
+            visitorTSP = (VisitorSpritePayload)visiteur.payload;
+
+            switch (visitorTSP.caseDeplacement)
+            {
+                case 0:
+                    {
+                        if (visiteur.BaseImageLocation.Equals(new Point(371, 416)))
+                        {
+                            visiteur.SetSpriteDirectionToPoint(new Point(17, 416));
+                            //newSprite.ChangeAnimation(0);  //normalement on ferait un change animation pour chaque mouvement mais on manque de temps
+                            visitorTSP.caseDeplacement++;
+                        }
+                    }
+                    break;
+                case 1:
+                    {
+                        if (visiteur.BaseImageLocation.X < 19)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.PutBaseImageLocation(new Point(17, 416));
+                            visiteur.SetSpriteDirectionToPoint(new Point(17, 21));
+                            visiteur.AutomaticallyMoves = true;
+                            visitorTSP.caseDeplacement++;
+                        }
+
+                    }
+                    break;
+                case 2:
+                    {
+                        if (visiteur.BaseImageLocation.Y < 23)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.PutBaseImageLocation(new Point(17, 21));
+                            visiteur.SetSpriteDirectionToPoint(new Point(331, 21));
+                            visiteur.AutomaticallyMoves = true;
+                            visitorTSP.caseDeplacement++;
+                        }
+
+                    }
+                    break;
+                case 3:
+                    {
+                        if (visiteur.BaseImageLocation.X > 329)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.PutBaseImageLocation(new Point(331, 21));
+                            visiteur.SetSpriteDirectionToPoint(new Point(331, 210));
+                            visiteur.AutomaticallyMoves = true;
+                            visitorTSP.caseDeplacement++;
+                        }
+
+                    }
+                    break;
+                case 4:
+                    {
+                        if (visiteur.BaseImageLocation.X > 329)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.PutBaseImageLocation(new Point(331, 21));
+                            visiteur.SetSpriteDirectionToPoint(new Point(331, 210));
+                            visiteur.AutomaticallyMoves = true;
+                            visitorTSP.caseDeplacement++;
+                        }
+
+                    }
+                    break;
+                case 5:
+                    {
+                        if (visiteur.BaseImageLocation.Y > 207)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.PutBaseImageLocation(new Point(331, 210));
+                            visiteur.SetSpriteDirectionToPoint(new Point(368, 265));
+                            visiteur.AutomaticallyMoves = true;
+                            visitorTSP.caseDeplacement++;
+                        }
+
+                    }
+                    break;
+                case 6:
+                    {
+                        if (visiteur.BaseImageLocation.X > 366 && visiteur.BaseImageLocation.Y > 260)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.PutBaseImageLocation(new Point(368, 265));
+                            visiteur.SetSpriteDirectionToPoint(new Point(371, 420));
+                            visiteur.AutomaticallyMoves = true;
+                            visitorTSP.caseDeplacement++;
+                        }
+
+                    }
+                    break;
+                default:
+                    {
+                        if (visiteur.BaseImageLocation.Y > 420)
+                        {
+                            visiteur.AutomaticallyMoves = false;
+                            visiteur.Destroy();
+                        }
+                    }
+                    break;
+            }
+
+            //vérifie s'il est temps pour le visiteur de jetter des déchets
+            if ((DateTime.UtcNow - visitorTSP.LastTrashThrowedTime).TotalMilliseconds > constants.TimeGenerateNewTrash)
+            {
+                if (TheGameController.RandomNumberGenerator.Next(100) < 10)
+                {
+                    if (TheGameController.RandomNumberGenerator.Next(5) == 0)
+                    {
+                        Console.WriteLine("//////////////////////////////////Trash Throwed Now////////////////////////////////////////////////////");
+                    }
+                    //Update le temps, pour s'assurer qu'on ne jette pas des déchets chaque 0,1 secondes
+                    visitorTSP.LastTrashThrowedTime = DateTime.UtcNow;
+                }
+            }
         }
 
         /// <summary>
-        /// DoTick.  This is the main function of the game.  It happens every few milliseconds
-        /// read the README file in the resources for a bigger description of how it works
+        /// DoTick.  C'est la méthode principale du jeu. Elle est appelé aux quelques milliseconds
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
         private void DoTick(object Sender, EventArgs e)
         {
-            //If the game is not currently playing (the instructions are visible)
+            //S'assure qu'on ne puisse pas faire d'autres mouvements ou actions si on est en train d'interragir.
+            //c'est une commande de sécurité
             if (!isInteracting)
             {
+                //Si on ne joue pas encore
                 if (!PlayingGame)
                 {
-
-                    //All we do is "press Enter to start the game"
+                    //On doit appuyer enter pour commencer le jeu
                     if (TheGameController.IsKeyPressed(Keys.Enter))
                         StartGame();
-                    //Exit DoTick if we are not currently playing the game.
+                    //Quitte le DoTick si on a pas commencé le jeu
                     return;
                 }
-
-
-                //Check to see if the player has pressed a key, and process it.
-                //Do sub movement and firing of player torpedoes
+                //Vérifie si on a appuyé sur une touche
                 CheckForKeyPress(Sender, e);
+            }
+
+
+            //Ajoute des visiteurs selon le temps passé depuis la dernière fois qu'on a ajouté (ajoute à chaque 15 secondes)
+            if ((DateTime.UtcNow - LastAddItem).TotalMilliseconds > constants.TimeBetweenReplenishVisitors)
+            {
+                LastAddItem = DateTime.UtcNow;
+
+                //ItemTotalCount compte tous les items qu'il y a dans le jeu en ce moment
+                int Items = ItemTotalCount();
+
+                //Si le parc n'a pas trop de déchets ou trop de visiteurs
+                if (Items < constants.MaxNumberItems)
+                {
+                    CreateVisitor();
+                }
             }
         }
 
+        private void CreateVisitor()
+        {
+            Sprite newSprite = null;
+            VisitorSpritePayload VisitorTSP = new VisitorSpritePayload();
+            int choice = TheGameController.RandomNumberGenerator.Next(2);
+            switch (choice)
+            {
+                case 0:
+                    //add a male
+                    {
+                        newSprite = TheGameController.DuplicateSprite(SpriteName.VisiteurM.ToString());
+                        newSprite.SetSpriteDirectionDegrees(0);
+                        //newSprite.ChangeAnimation(0);  //normalement on ferait un change animation mais on manque de temps
+                        newSprite.MovementSpeed = constants.VisiteurSpeed;
+                    }
+                    break;
+                case 1:
+                    //add a female
+                    {
+                        newSprite = TheGameController.DuplicateSprite(SpriteName.VisiteurF.ToString());
+                        newSprite.SetSpriteDirectionDegrees(0);
+                        //newSprite.ChangeAnimation(0);  //normalement on ferait un change animation mais on manque de temps
+                        newSprite.MovementSpeed = constants.VisiteurSpeed;
+                    }
+                    break;
+            }
+
+            if (newSprite != null)
+            {
+                newSprite.PutBaseImageLocation(constants.VisiteurStartingPoint);
+                newSprite.CannotMoveOutsideBox = true;
+            }
+            newSprite.payload = VisitorTSP;
+            newSprite.AutomaticallyMoves = true;
+        }
+
+        private int ItemTotalCount()
+        {
+            int Counter = 0;
+
+            foreach (Sprite one in TheGameController.SpritesBasedOffAnything())
+            {
+                if (one.SpriteOriginName == SpriteName.VisiteurM.ToString())
+                    Counter++;
+                if (one.SpriteOriginName == SpriteName.VisiteurF.ToString())
+                    Counter++;
+                if (one.SpriteOriginName == SpriteName.Trash.ToString())
+                    Counter++;
+            }
+            return Counter;
+        }
+
+        /// <summary>
+        /// Vérifie si une touche qui a été appuyé cause une action. Cette méthode est appelé presque chaque milliseconde
+        /// </summary>
         private void CheckForKeyPress(object sender, EventArgs e)
         {
-            TorpSpritePayload TempTSP = (TorpSpritePayload)PlayerSub.payload;
-            //on garde les méthodes de shoot pour lorsqu'on va faire les interactions
+            //cherche le payload du sprite pour savoir s'il est proche d'un autre sprite et qu'il peut intéragir ou non
+            PlayerSpritePayload TempTSP = (PlayerSpritePayload)PlayerCharacter.payload;
             bool left = false;
             bool right = false;
             bool up = false;
@@ -165,10 +387,6 @@ namespace zoo_tycoon
             TimeSpan duration = DateTime.UtcNow - LastMovement;
             if (duration.TotalMilliseconds < 200)
                 return;
-
-            //pbOcean.Invalidate();
-
-            //UpdateLevel(); //Change the game level if needed
 
             LastMovement = DateTime.Now;
             if (TheGameController.IsKeyPressed(Keys.A) || TheGameController.IsKeyPressed(Keys.Left))
@@ -189,38 +407,51 @@ namespace zoo_tycoon
             }
             if (TheGameController.IsKeyPressed(Keys.X))
             {
-                //The > key
                 interact = true;
             }
             if (down && up) return;
             if (left && right) return;
 
-            //Check if interraction key is valid before any other movements cancel it
+            //Verifie si la touche d'interraction a ete appuyé avant de faire d'autres mouvements
             if (interact)
             {
                 if (TempTSP.Interactible)
                 {
                     isInteracting = true;
-                    PlayerSub.MovementSpeed = 0;
+                    PlayerCharacter.MovementSpeed = 0;
                     LastDirection = Direction.none;
                     MenuInterraction();
+                }
+                else
+                {
+                    isInteracting = true;
+                    PlayerCharacter.MovementSpeed = 0;
+                    LastDirection = Direction.none;
+                    //Pour Assim, appelle la nouvelle form qui montre les infos du personnage (ou les infos générales du jeu) ici.
+                    //Pour savoir les données du perso, tu dois faire les commandes suivantes:
+                    /*
+                     * PlayerSpritePayload TempTSP = (PlayerSpritePayload)PlayerCharacter.payload;
+                     * int soldeDuJoueur = TempTSP.Solde
+                     * int nombre d'animaux = TempTSP.nombreAnimaux;
+                     */
+                    //si tu veux ajouter d'autres données pour le joueur, il faut que tu ailles dans PlayerSpritePayload pour les ajouter
                 }
             }
 
             if (!didsomething && left && up)
             {
-                // if we are already going one direction, do not tell it to go the same direction
+                // si on va dans une direction, on empêche d'aller dans une autre.
                 if (LastDirection != Direction.up_left)
                 {
                     LastDirection = Direction.up_left;
-                    PlayerSub.ChangeAnimation(1); //left
-                    PlayerSub.SetSpriteDirectionDegrees(135);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedMixDirection;
+                    PlayerCharacter.ChangeAnimation(1); //left
+                    PlayerCharacter.SetSpriteDirectionDegrees(135);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
+
                 }
                 didsomething = true;
             }
@@ -229,13 +460,12 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.down_left)
                 {
                     LastDirection = Direction.down_left;
-                    PlayerSub.ChangeAnimation(1); //left
-                    PlayerSub.SetSpriteDirectionDegrees(225);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedMixDirection;
+                    PlayerCharacter.ChangeAnimation(1); //left
+                    PlayerCharacter.SetSpriteDirectionDegrees(225);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
@@ -244,13 +474,12 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.left)
                 {
                     LastDirection = Direction.left;
-                    PlayerSub.ChangeAnimation(1); //left
-                    PlayerSub.SetSpriteDirectionDegrees(180);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedLeftRight;
+                    PlayerCharacter.ChangeAnimation(1); //left
+                    PlayerCharacter.SetSpriteDirectionDegrees(180);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedLeftRight;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
@@ -259,13 +488,12 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.up_right)
                 {
                     LastDirection = Direction.up_right;
-                    PlayerSub.ChangeAnimation(2); //right
-                    PlayerSub.SetSpriteDirectionDegrees(45);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedMixDirection;
+                    PlayerCharacter.ChangeAnimation(2); //right
+                    PlayerCharacter.SetSpriteDirectionDegrees(45);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
@@ -274,13 +502,12 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.down_right)
                 {
                     LastDirection = Direction.down_right;
-                    PlayerSub.ChangeAnimation(2); //right
-                    PlayerSub.SetSpriteDirectionDegrees(315);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedMixDirection;
+                    PlayerCharacter.ChangeAnimation(2); //right
+                    PlayerCharacter.SetSpriteDirectionDegrees(315);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
@@ -289,13 +516,12 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.right)
                 {
                     LastDirection = Direction.right;
-                    PlayerSub.ChangeAnimation(2); //right
-                    PlayerSub.SetSpriteDirectionDegrees(0);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedLeftRight;
+                    PlayerCharacter.ChangeAnimation(2); //right
+                    PlayerCharacter.SetSpriteDirectionDegrees(0);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedLeftRight;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
@@ -304,13 +530,12 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.up)
                 {
                     LastDirection = Direction.up;
-                    PlayerSub.ChangeAnimation(3); //up
-                    PlayerSub.SetSpriteDirectionDegrees(90);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedUpDown;
+                    PlayerCharacter.ChangeAnimation(3); //up
+                    PlayerCharacter.SetSpriteDirectionDegrees(90);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedUpDown;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
@@ -319,24 +544,28 @@ namespace zoo_tycoon
                 if (LastDirection != Direction.down)
                 {
                     LastDirection = Direction.down;
-                    PlayerSub.ChangeAnimation(0); //down
-                    PlayerSub.SetSpriteDirectionDegrees(270);
-                    PlayerSub.AutomaticallyMoves = true;
-                    PlayerSub.MovementSpeed = constants.PlayerSpeedUpDown;
+                    PlayerCharacter.ChangeAnimation(0); //down
+                    PlayerCharacter.SetSpriteDirectionDegrees(270);
+                    PlayerCharacter.AutomaticallyMoves = true;
+                    PlayerCharacter.MovementSpeed = constants.PlayerSpeedUpDown;
 
                     TempTSP.Interactible = false;
-                    PlayerSub.payload = TempTSP;
                 }
                 didsomething = true;
             }
 
-            // if we have not been told to move, we stop
+            // si on n'appuie plus sur une case de déplacement, on arrete de bouger
             if (!didsomething)
             {
-                PlayerSub.MovementSpeed = 0;
+                PlayerCharacter.MovementSpeed = 0;
                 LastDirection = Direction.none;
             }
 
+            PlayerCharacter.payload = TempTSP;
+            if (didsomething)
+            {
+                Console.WriteLine(PlayerLastLocation);
+            }
         }
 
         private void MenuInterraction()
@@ -383,46 +612,49 @@ namespace zoo_tycoon
             }
         }
 
-        //Set up for the start of the game.  We do this at the beginning of each game.
-        //Just before this, we had done a PrintDirections() and were waiting for someone
-        //to press enter.
+        /// <summary>
+        /// On fait cette méthode après que le joueur est appuyé sur enter pour commencer la partie.
+        /// </summary>
         private void StartGame()
         {
-            //Make a copy of the image so we can write to it
             Image nImage = new Bitmap(Properties.Resources.background_zoo2, constants.BackgroundSize);
             TheGameController.ReplaceOriginalImage(nImage);
             MainDrawingArea.BackgroundImage = nImage;
             MainDrawingArea.Invalidate();
 
-            //Get rid of all sprites.  We will add new ones for the game
+            //Detruit tout les sprites qu'il y a dans le jeu pour s'assurer que tout va bien
             foreach (Sprite one in TheGameController.SpritesBasedOffAnything())
             {
                 one.Destroy();
             }
 
-            //Pull out the player sprite.
-            PlayerSub = TheGameController.DuplicateSprite(SpriteName.PlayerSub.ToString());
-            //Add this function to keep the player sub from exiting the box
-            PlayerSub.CheckBeforeMove += PlayerCheckBeforeMovement; //CAN ALSO BE BASED ON TorpedoCheckBeforeMouvement
-            //Add an event for when our sub collides with something
-            PlayerSub.SpriteHitsSprite += PlayerSubHitsSomething;
+            //Crée une copie du sprite du Joueur enregistré dans TheGameControler
+            PlayerCharacter = TheGameController.DuplicateSprite(SpriteName.PlayerCharacter.ToString());
+            //evenement pour s'assurer que le character ne sort pas du form
+            PlayerCharacter.CheckBeforeMove += PlayerCheckBeforeMovement;
+            //evènement si le sprite du joueur touche quelque chose
+            PlayerCharacter.SpriteHitsSprite += PlayerCharacterHitsSomething;
 
-            //Create a payload for the sprite //NEED TO RENAME AT SOME POINT INTO STATS OR SMTH
-            TorpSpritePayload PlayerTSP = new TorpSpritePayload();
-            PlayerTSP.isGood = true;
-            PlayerSub.payload = PlayerTSP; //payload is the same as a userControl class without the graphics component (Luigi)
+            //Ajoute un payload au joueur
+            PlayerSpritePayload PlayerTSP = new PlayerSpritePayload();
+            PlayerCharacter.payload = PlayerTSP;
+            AnimalSpritePayload AnimalTPS = new AnimalSpritePayload();
 
-            //This is a fail-safe check.  If the main sprite does not load, we are in trouble.
-            if (PlayerSub != null)
+            //Test method, on vérifie si la librairie est bien installé en vérifiant si on peut load le player
+            if (PlayerCharacter != null)
             {
-                PlayerSub.PutBaseImageLocation(constants.PlayerStartingPoint);
-                Sprite one = TheGameController.DuplicateSprite(SpriteName.Cloture.ToString());
+                PlayerCharacter.PutBaseImageLocation(constants.PlayerStartingPoint);
+                Sprite one = TheGameController.DuplicateSprite(SpriteName.Cloture1.ToString());
+                one.payload = AnimalTPS;
                 one.PutBaseImageLocation(new Point(50, 65));
-                one = TheGameController.DuplicateSprite(SpriteName.Cloture.ToString());
+                one = TheGameController.DuplicateSprite(SpriteName.Cloture2.ToString());
+                one.payload = AnimalTPS;
                 one.PutBaseImageLocation(new Point(215, 65));
-                one = TheGameController.DuplicateSprite(SpriteName.Cloture.ToString());
+                one = TheGameController.DuplicateSprite(SpriteName.Cloture3.ToString());
+                one.payload = AnimalTPS;
                 one.PutBaseImageLocation(new Point(50, 265));
-                one = TheGameController.DuplicateSprite(SpriteName.Cloture.ToString());
+                one = TheGameController.DuplicateSprite(SpriteName.Cloture4.ToString());
+                one.payload = AnimalTPS;
                 one.PutBaseImageLocation(new Point(215, 265));
                 one = TheGameController.DuplicateSprite(SpriteName.Ours.ToString());
                 one.PutBaseImageLocation(new Point(100, 100));
@@ -433,100 +665,54 @@ namespace zoo_tycoon
                 MessageBox.Show("Unable to load the primary sprite.  Closing!");
                 Close();
             }
-            //Reset things so the second game does no start insanely
-            //mettre les valeurs à false s'il y en a
 
-            //Set the game start to be now.  The level is calculated off this value
+            //Le jeu commence maintenant, le timer sert dans toutes les autres méthodes du jeu
             GameStartTime = DateTime.UtcNow;
 
-            //Set it so we are playing the game.  Now DoTick will continue processing stuff
+            //Le jeu commence maintenat, DoTick va maintenant commencer à faire des actions
             PlayingGame = true;
-
-            //creatingOtherSprites();
-        }
-
-        private void creatingOtherSprites()
-        {
-            Sprite newSprite = null;
-            TorpSpritePayload TSP;
-            TSP = new TorpSpritePayload();
-            //347, 250 character Position
-            int Xlocation;
-            int YLocation;
-
-            newSprite = TheGameController.DuplicateSprite(SpriteName.EnemySub.ToString()); //sprite 1
-            Xlocation = 350;
-            YLocation = 200;
-            TSP.Movable = false;
-            TSP.Interactible = false;
-            if (newSprite != null)
-            {
-                TSP.isGood = false;
-                newSprite.PutBaseImageLocation(new Point(Xlocation, YLocation));
-                newSprite.SetSpriteDirectionDegrees(0);
-                newSprite.payload = TSP;
-                newSprite.AutomaticallyMoves = false;
-            }
-
-            newSprite = TheGameController.DuplicateSprite(SpriteName.EnemySub.ToString()); //sprite 2
-            Xlocation = 300;
-            YLocation = 200;
-            TSP.Movable = false;
-            TSP.Interactible = false;
-            if (newSprite != null)
-            {
-                TSP.isGood = false;
-                newSprite.PutBaseImageLocation(new Point(Xlocation, YLocation));
-                newSprite.SetSpriteDirectionDegrees(0);
-                newSprite.payload = TSP;
-                newSprite.AutomaticallyMoves = false;
-            }
-
-            newSprite = TheGameController.DuplicateSprite(SpriteName.EnemySub.ToString()); //sprite 3 
-            Xlocation = 400;
-            YLocation = 200;
-            TSP.Movable = false;
-            TSP.Interactible = false;
-            if (newSprite != null)
-            {
-                TSP.isGood = false;
-                newSprite.PutBaseImageLocation(new Point(Xlocation, YLocation));
-                newSprite.SetSpriteDirectionDegrees(0);
-                newSprite.payload = TSP;
-                newSprite.AutomaticallyMoves = false;
-            }
         }
 
         /// <summary>
-        /// This happens when the player submarine sprite hits something.  It could be a player torpedo, which
-        /// gets ignored.  But it could be a whale, an enemy sub, an enemy torpedo, or an enemy depth-charge.
-        /// Deal with all those options here.  This function is added to the player sub when we load sprites.
+        /// Méthode qui décrit ce qui arrive si notre character touche un object.
+        /// L'objet en question doit être un autre sprite pour causer une réaction. 
+        /// Modifie le paramètre interactible pour qu'on puisse afficher le menu d'interaction lorsqu'on est proche d'un object.
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
-        /// YOU CAN USE THAT METHOD FOR WHEN YOU GET IN CONTACT WITH ANOTHER SPRITE OR A UNMOVABLE OBJECT
-        private void PlayerSubHitsSomething(object Sender, SpriteEventArgs e)
+        private void PlayerCharacterHitsSomething(object Sender, SpriteEventArgs e)
         {
             if (!(Sender is Sprite)) return;
             Sprite Target = (Sprite)Sender;
-            //If we are not playing the game, then do not do anything.
+
+            //Console.WriteLine(e.TargetSprite.SpriteOriginName.ToString()); 
+
+
             if (!PlayingGame) return;
 
-            //zones de contact possible:
-            //en bas direct, en bas droite, en bas gauche, en haut direct, en haut gauche, en haut droit, à gauche direct, à droite direct
-            //il faut faire des marges
-
             Target.PutBaseImageLocation(PlayerLastLocation);
-            if (Target.payload is TorpSpritePayload)
+            if (Target.payload is PlayerSpritePayload)
             {
-                TorpSpritePayload TempTSP = (TorpSpritePayload)Target.payload;
-                TempTSP.Interactible = true;
+                PlayerSpritePayload TempTSP = (PlayerSpritePayload)Target.payload;
+                if (e.TargetSprite.payload is VisitorSpritePayload)
+                {
+                    TempTSP.Interactible = false;
+                }
+                if (e.TargetSprite.payload is AnimalSpritePayload)
+                {
+                    TempTSP.Interactible = true;
+                }
                 Target.payload = TempTSP;
             }
         }
 
-        //Before the player moves.  Make sure it is a valid movement
-        //Ensure he is not moving off the playing-field.
+
+        /// <summary>
+        /// Vérifie avant que le player se déplace si c'est un mouvement valide.
+        /// s'assure que le player ne sort pas de l'écran.
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void PlayerCheckBeforeMovement(object Sender, SpriteEventArgs e)
         {
             if (!(Sender is Sprite)) return;
@@ -540,28 +726,28 @@ namespace zoo_tycoon
             }
 
             //Check right side
-            if (e.NewLocation.X > MainDrawingArea.BackgroundImage.Width - constants.DistanceFromSide - PlayerSub.GetSize.Width &&
+            if (e.NewLocation.X > MainDrawingArea.BackgroundImage.Width - constants.DistanceFromSide - PlayerCharacter.GetSize.Width &&
                 (Where == Direction.down_right || Where == Direction.right || Where == Direction.up_right))
             {
-                e.NewLocation.X = MainDrawingArea.BackgroundImage.Width - constants.DistanceFromSide - PlayerSub.GetSize.Width;
+                e.NewLocation.X = MainDrawingArea.BackgroundImage.Width - constants.DistanceFromSide - PlayerCharacter.GetSize.Width;
             }
 
             //check top
-            if (e.NewLocation.Y < constants.WaterLevel + constants.DistanceFromBot && (Where == Direction.up_left || Where == Direction.up || Where == Direction.up_right))
+            if (e.NewLocation.Y < constants.DistanceFromTop + constants.DistanceFromBot && (Where == Direction.up_left || Where == Direction.up || Where == Direction.up_right))
             {
-                e.NewLocation.Y = constants.WaterLevel + constants.DistanceFromBot;
+                e.NewLocation.Y = constants.DistanceFromTop + constants.DistanceFromBot;
             }
 
             //Check bottom
-            if (e.NewLocation.Y > constants.GroundLevel - constants.DistanceFromBot - PlayerSub.GetSize.Height &&
+            if (e.NewLocation.Y > constants.TailleDiagonale - constants.DistanceFromBot - PlayerCharacter.GetSize.Height &&
                 (Where == Direction.down_right || Where == Direction.down || Where == Direction.down_left))
             {
-                e.NewLocation.Y = constants.GroundLevel - constants.DistanceFromBot - PlayerSub.GetSize.Height;
+                e.NewLocation.Y = constants.TailleDiagonale - constants.DistanceFromBot - PlayerCharacter.GetSize.Height;
             }
         }
 
         /// <summary>
-        /// Return the direction a particular sprite is moving.
+        /// Retourne la direction où le joueur se déplace.
         /// </summary>
         /// <param name="Which"></param>
         /// <returns></returns>
@@ -581,54 +767,24 @@ namespace zoo_tycoon
             return Direction.none;
         }
 
+        private void ZooTycoon_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (PlayerCharacter != null)
+            {
+                PlayerSpritePayload PlayerTSP = (PlayerSpritePayload)PlayerCharacter.payload;
+                int soldeFinal = PlayerTSP.Solde;
+                DialogResult result;
+                result = MessageBox.Show("Félicitation! Vous avez terminé avec : " + soldeFinal + "$ en poche!", "Fin de la Partie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    isInteracting = false;
+                }
+            }
+
+        }
     }
 
-
-    public class TorpSpritePayload : SpritePayload
-    {
-        //consider using it for stats (money, state of the object (movable, unmovable) and such)
-        public bool isGood = false; //not sure what it does
-        public Direction lastdirection = Direction.none; //no idea what it does
-        public bool Movable = false;
-        public bool Interactible = false;
-        public int Solde = 80;
-        public int nombreAnimaux = 0;
-    }
-    public class AnimalSpritePayload : SpritePayload
-    {
-        //consider using it for stats (money, state of the object (movable, unmovable) and such)
-        public bool isGood = false; //not sure what it does
-        public Direction lastdirection = Direction.none; //no idea what it does
-        public bool Movable = false;
-        public bool Interactible = false;
-        public int QqtConsomme = 0;
-        public int PrixAchat = 0;
-        public int TempsGestation = 0;
-        public int TempsLimite = 0;
-    }
-
-
-    public class constants
-    {
-        public const int DistanceFromSide = 10; //limite gauche et droite de l'écran?
-        public const int DistanceFromBot = 10; // aucune idée je vais être honnêtre, don't know why
-        public const int WaterLevel = 10; //hauteur de l'espace de déplacement peut-être? 
-        public const int GroundLevel = 470; //longeur de l'espace de déplacement peut-être? 
-
-        public static Size BackgroundSize { get { return new Size(500, 500); } }
-        public static Size EnemySubSize { get { return new Size(50, 20); } }
-
-        public static Size CharacterSize { get { return new Size(30, 40); } } //35,50 parfais
-        public static Size OursSize { get { return new Size(40, 55); } }
-        public static Point PlayerStartingPoint { get { return new Point(420, 150); } }
-
-        public static Size ClotureSize { get { return new Size(120, 140); } }
-
-        public static int PlayerSpeedLeftRight = 5;
-        public static int PlayerSpeedUpDown = 8;
-        public static int PlayerSpeedMixDirection = 8;
-    }
-    public enum SpriteName { PlayerSub, EnemySub, Ours, Chèvre, Girafe, Cloture }
+    public enum SpriteName { PlayerCharacter, VisiteurM, VisiteurF, Ours, Chèvre, Girafe, Cloture1, Cloture2, Cloture3, Cloture4, Trash }
     public enum Direction { none, up, down, left, right, up_left, up_right, down_left, down_right }
 }
 

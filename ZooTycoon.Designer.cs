@@ -50,6 +50,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ZooTycoon";
             this.Text = "Zoo Tycoon";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZooTycoon_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.MainDrawingArea)).EndInit();
             this.ResumeLayout(false);
 

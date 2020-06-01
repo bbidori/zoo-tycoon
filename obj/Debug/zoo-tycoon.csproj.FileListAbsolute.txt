@@ -34,5 +34,5 @@ C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tyco
 C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CopyComplete
 C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo-tycoon.exe
 C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo-tycoon.pdb
-C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo-tycoon.csprojAssemblyReference.cache
 C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo_tycoon.ZooTycoon.resources
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo-tycoon.csprojAssemblyReference.cache

@@ -50,6 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimalSpritePayload.cs" />
+    <Compile Include="constants.cs" />
+    <Compile Include="PlayerSpritePayload.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="VisitorSpritePayload.cs" />
     <Compile Include="ZooTycoon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,14 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -146,6 +150,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Zoo_Tycoon_Opening.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterSpriteSheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VisiteurFemale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VisiteurMale.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

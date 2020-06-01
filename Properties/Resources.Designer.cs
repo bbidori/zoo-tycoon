@@ -73,69 +73,19 @@ namespace zoo_tycoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CharacterSpriteSheet {
+            get {
+                object obj = ResourceManager.GetObject("CharacterSpriteSheet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dev {
             get {
                 object obj = ResourceManager.GetObject("dev", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EnemySubL {
-            get {
-                object obj = ResourceManager.GetObject("EnemySubL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EnemySubR {
-            get {
-                object obj = ResourceManager.GetObject("EnemySubR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Perso_Moving_Down {
-            get {
-                object obj = ResourceManager.GetObject("Perso_Moving_Down", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Perso_Moving_Left {
-            get {
-                object obj = ResourceManager.GetObject("Perso_Moving_Left", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Perso_Moving_Right {
-            get {
-                object obj = ResourceManager.GetObject("Perso_Moving_Right", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Perso_Moving_Up {
-            get {
-                object obj = ResourceManager.GetObject("Perso_Moving_Up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +153,19 @@ namespace zoo_tycoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap transparent_Bckg {
+        internal static System.Drawing.Bitmap VisiteurFemale {
             get {
-                object obj = ResourceManager.GetObject("transparent_Bckg", resourceCulture);
+                object obj = ResourceManager.GetObject("VisiteurFemale", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VisiteurMale {
+            get {
+                object obj = ResourceManager.GetObject("VisiteurMale", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
