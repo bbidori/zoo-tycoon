@@ -106,27 +106,6 @@
     <None Include="Resources\dev.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\zoo_tileset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EnemySubL.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EnemySubR.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Perso_Moving_Down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Perso_Moving_Left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Perso_Moving_Right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Perso_Moving_Up.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Perso_Standing_Back.png" />
   </ItemGroup>
   <ItemGroup>
@@ -173,18 +152,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_paw.png" />
-	</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\trash_oject.png" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\border.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\interaction.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\text1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\text11.png" />
@@ -200,6 +176,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\text21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\garbage_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\animal_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left_trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tileset_zoo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

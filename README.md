@@ -27,7 +27,7 @@
 	Les visiteurs entrent à chaque 10 secondes dans le jeu et suivent un parcourt tracé. Pas question qu'ils fassent la fête et sacagent votre terrain non mais!
 	Les visiteurs laissent trainer des déchets de temps en temps car leurs parents ne les ont pas éduqués (qu'est ce que vous voulez, c'est la vie)
 	Même si c'est eux qui laissent les déchets, s'il y en a trop dans le zoo alors ils vont cessé de rentrer à l'interieur (HA, l'ironie)
-	Le client est le roi! Si le visiteur veut passer, vous ne pouvez pas l'arrêter et si vous voulez le dépasser, vous ne pouvez pas le faire car il est trop fort.
+	Vos talent de gérant exceptionnel font en sorte que vous pouvez éviter les visiteurs qui passent à côté de vous sans causer de collisions.
 	Par contre, il y a des bénifices à avoir des visiteurs! Et oui, c'est votre seul source d'argent! Les visiteurs payent 2$ pour chaque animal que vous avez dans le zoo.
 	
 	Déchets: 

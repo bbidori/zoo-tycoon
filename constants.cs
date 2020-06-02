@@ -20,7 +20,7 @@ namespace zoo_tycoon
         public static Size EnemySubSize { get { return new Size(50, 20); } }
 
         public static Size CharacterSize { get { return new Size(30, 40); } } //35,50 parfais
-        public static Size OursSize { get { return new Size(40, 55); } }
+        public static Size AnimalSize { get { return new Size(40, 55); } }
 
         public static Size TrashSize { get { return new Size(15, 20); } }
         public static Point PlayerStartingPoint { get { return new Point(420, 150); } }
@@ -38,6 +38,8 @@ namespace zoo_tycoon
         public static int PlayerSpeedLeftRight = 5;
         public static int PlayerSpeedUpDown = 8;
         public static int PlayerSpeedMixDirection = 8;
+
+        public static int maxAnimal = 3;
 
         public static int VisiteurSpeed = 2;
 
