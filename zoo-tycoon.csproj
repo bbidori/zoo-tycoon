@@ -166,5 +166,23 @@
   <ItemGroup>
     <None Include="Resources\interaction.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fermer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text21.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

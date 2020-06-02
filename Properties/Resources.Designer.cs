@@ -103,6 +103,16 @@ namespace zoo_tycoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fermer {
+            get {
+                object obj = ResourceManager.GetObject("fermer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap interaction {
             get {
                 object obj = ResourceManager.GetObject("interaction", resourceCulture);
@@ -166,6 +176,56 @@ namespace zoo_tycoon.Properties {
         internal static System.Drawing.Bitmap Temps_Background_Farm {
             get {
                 object obj = ResourceManager.GetObject("Temps_Background_Farm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap text1 {
+            get {
+                object obj = ResourceManager.GetObject("text1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap text11 {
+            get {
+                object obj = ResourceManager.GetObject("text11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap text12 {
+            get {
+                object obj = ResourceManager.GetObject("text12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap text2 {
+            get {
+                object obj = ResourceManager.GetObject("text2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap text21 {
+            get {
+                object obj = ResourceManager.GetObject("text21", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
