@@ -783,12 +783,10 @@ namespace zoo_tycoon
 
         }
 
-        private void MainDrawingArea_MouseMove(object sender, MouseEventArgs e)
+        private void ZooTycoon_Load(object sender, EventArgs e)
         {
-            label1.Text = "X: " + e.X + "\nY: " + e.Y;
+
         }
-
-
     }
 
     public enum SpriteName { PlayerCharacter, VisiteurM, VisiteurF, Ours, Chèvre, Girafe, Cloture1, Cloture2, Cloture3, Cloture4, Trash }
