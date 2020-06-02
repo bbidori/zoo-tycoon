@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimalSpritePayload.cs" />
+    <Compile Include="ClotureSpritePayload.cs" />
     <Compile Include="constants.cs" />
     <Compile Include="PlayerSpritePayload.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -58,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TrashSpritePayload.cs" />
     <Compile Include="VisitorSpritePayload.cs" />
     <Compile Include="ZooTycoon.cs">
       <SubType>Form</SubType>
@@ -171,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_paw.png" />
+	</ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash_oject.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
