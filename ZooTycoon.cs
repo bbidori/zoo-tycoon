@@ -673,9 +673,9 @@ namespace zoo_tycoon
             formInteraction = new FormInteraction();
             formInteraction.SetDesktopLocation(100, 100);
             formInteraction.Visible = true;
-            formInteraction.Option1.Click += new System.EventHandler(this.Option1Click);
-            formInteraction.Option2.Click += new System.EventHandler(this.Option2Click);
-            formInteraction.Option3.Click += new System.EventHandler(this.Option3Click);
+            formInteraction.button1.Click += new System.EventHandler(this.Option1Click);
+            formInteraction.button2.Click += new System.EventHandler(this.Option2Click);
+            formInteraction.button3.Click += new System.EventHandler(this.Option3Click);
         }
         private void Option3Click(object sender, EventArgs e)
         {
@@ -870,8 +870,10 @@ namespace zoo_tycoon
             Sprite Target = (Sprite)Sender;
 
             if (!PlayingGame) return;
-
-            Target.PutBaseImageLocation(PlayerLastLocation);
+            if(e.TargetSprite.payload is ClotureSpritePayload || e.TargetSprite.payload is TrashSpritePayload)
+            {
+                Target.PutBaseImageLocation(PlayerLastLocation);
+            }
             if (Target.payload is PlayerSpritePayload)
             {
                 PlayerSpritePayload TempTSP = (PlayerSpritePayload)Target.payload;
