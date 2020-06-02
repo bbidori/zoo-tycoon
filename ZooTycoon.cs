@@ -31,7 +31,7 @@ namespace zoo_tycoon
 
 
         bool PlayingGame = false;
-        bool isInteracting = false;
+        public static bool isInteracting = false;
 
         DateTime GameStartTime = DateTime.UtcNow;
         FormInteraction formInteraction;
@@ -540,7 +540,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = 0;
                     LastDirection = Direction.none;
                     formInteraction = new FormInteraction();
-                    formInteraction.Show();
+                    formInteraction.ShowDialog();
                 }
             }
             if (down && up) return;
@@ -668,9 +668,15 @@ namespace zoo_tycoon
                 LastDirection = Direction.none;
             }
         }
-
-
-
+        private void MenuInterraction()
+        {
+            formInteraction = new FormInteraction();
+            formInteraction.SetDesktopLocation(100, 100);
+            formInteraction.Visible = true;
+            formInteraction.Option1.Click += new System.EventHandler(this.Option1Click);
+            formInteraction.Option2.Click += new System.EventHandler(this.Option2Click);
+            formInteraction.Option3.Click += new System.EventHandler(this.Option3Click);
+        }
         private void Option3Click(object sender, EventArgs e)
         {
             formInteraction.Close();

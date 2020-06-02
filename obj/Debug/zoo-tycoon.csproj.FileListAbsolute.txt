@@ -50,3 +50,5 @@ G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.GenerateResource.cac
 G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CopyComplete
 G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.exe
 G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.pdb
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\bin\Debug\SpriteLibrary.pdb
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\bin\Debug\SpriteLibrary.xml
