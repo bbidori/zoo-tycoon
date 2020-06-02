@@ -48,10 +48,10 @@
             // 
             // MainDrawingArea
             // 
-            this.MainDrawingArea.Location = new System.Drawing.Point(-1, -4);
+            this.MainDrawingArea.Location = new System.Drawing.Point(-1, 11);
             this.MainDrawingArea.Margin = new System.Windows.Forms.Padding(2);
             this.MainDrawingArea.Name = "MainDrawingArea";
-            this.MainDrawingArea.Size = new System.Drawing.Size(1604, 913);
+            this.MainDrawingArea.Size = new System.Drawing.Size(1604, 909);
             this.MainDrawingArea.TabIndex = 5;
             this.MainDrawingArea.TabStop = false;
             // 

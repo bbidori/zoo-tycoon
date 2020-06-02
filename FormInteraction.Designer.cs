@@ -28,65 +28,84 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Option1 = new System.Windows.Forms.Button();
-            this.Option2 = new System.Windows.Forms.Button();
-            this.Option3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Option1
+            // button1
             // 
-            this.Option1.BackColor = System.Drawing.Color.Transparent;
-            this.Option1.Location = new System.Drawing.Point(12, 12);
-            this.Option1.Name = "Option1";
-            this.Option1.Size = new System.Drawing.Size(135, 45);
-            this.Option1.TabIndex = 0;
-            this.Option1.Text = "Items";
-            this.Option1.UseVisualStyleBackColor = false;
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.button1.Location = new System.Drawing.Point(67, 77);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(275, 63);
+            this.button1.TabIndex = 0;
+            this.button1.UseVisualStyleBackColor = false;
             // 
-            // Option2
+            // button2
             // 
-            this.Option2.BackColor = System.Drawing.Color.Transparent;
-            this.Option2.Location = new System.Drawing.Point(12, 63);
-            this.Option2.Name = "Option2";
-            this.Option2.Size = new System.Drawing.Size(135, 44);
-            this.Option2.TabIndex = 1;
-            this.Option2.Text = "Status";
-            this.Option2.UseVisualStyleBackColor = false;
+            this.button2.BackColor = System.Drawing.Color.White;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.button2.Location = new System.Drawing.Point(67, 188);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(275, 61);
+            this.button2.TabIndex = 1;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // Option3
+            // button3
             // 
-            this.Option3.BackColor = System.Drawing.Color.Transparent;
-            this.Option3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Option3.Location = new System.Drawing.Point(12, 113);
-            this.Option3.Name = "Option3";
-            this.Option3.Size = new System.Drawing.Size(135, 44);
-            this.Option3.TabIndex = 2;
-            this.Option3.Text = "Exit";
-            this.Option3.UseVisualStyleBackColor = true;
+            this.button3.BackColor = System.Drawing.Color.White;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.button3.Location = new System.Drawing.Point(139, 389);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(123, 28);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Fermer";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.White;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.button4.Location = new System.Drawing.Point(67, 294);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(275, 61);
+            this.button4.TabIndex = 3;
+            this.button4.UseVisualStyleBackColor = false;
             // 
             // FormInteraction
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DimGray;
+            this.BackColor = System.Drawing.Color.ForestGreen;
+            this.BackgroundImage = global::zoo_tycoon.Properties.Resources.interaction;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(157, 170);
+            this.ClientSize = new System.Drawing.Size(403, 465);
             this.ControlBox = false;
-            this.Controls.Add(this.Option3);
-            this.Controls.Add(this.Option2);
-            this.Controls.Add(this.Option1);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(15, 15);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormInteraction";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "FormInteraction";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.Button Option1;
-        public System.Windows.Forms.Button Option2;
-        public System.Windows.Forms.Button Option3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }

@@ -107,6 +107,16 @@ namespace zoo_tycoon
             one.SetSpriteDirectionDegrees(180);
             one.MovementSpeed = 0;
             one.SetSize(constants.OursSize);
+
+            one = new Sprite(new Point(0, 512), TheGameController, Properties.Resources.zoo_tileset, 32, 32, 800, 8);
+            one.SetName("OURS2");
+
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSpriteDirectionDegrees(180);
+            one.MovementSpeed = 0;
+            one.SetSize(constants.OursSize);
+
             //////////////////////////////////////////////////////////
             one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
             one.SetName(SpriteName.Cloture1.ToString());
@@ -529,9 +539,13 @@ namespace zoo_tycoon
                     isInteracting = true;
                     PlayerCharacter.MovementSpeed = 0;
                     LastDirection = Direction.none;
-                    MenuInterraction();
+                    formInteraction = new FormInteraction();
+                    formInteraction.Show();
                 }
             }
+            if (down && up) return;
+            if (down && up) return;
+            if (left && right) return;
 
             if (!didsomething && left && up)
             {
@@ -655,15 +669,7 @@ namespace zoo_tycoon
             }
         }
 
-        private void MenuInterraction()
-        {
-            formInteraction = new FormInteraction();
-            formInteraction.SetDesktopLocation(100, 100);
-            formInteraction.Visible = true;
-            formInteraction.Option1.Click += new System.EventHandler(this.Option1Click);
-            formInteraction.Option2.Click += new System.EventHandler(this.Option2Click);
-            formInteraction.Option3.Click += new System.EventHandler(this.Option3Click);
-        }
+
 
         private void Option3Click(object sender, EventArgs e)
         {
@@ -815,7 +821,6 @@ namespace zoo_tycoon
                 one.payload = ClotureTSP;
                 one.PutBaseImageLocation(new Point(215, 265));
                 one = TheGameController.DuplicateSprite(SpriteName.Ours.ToString());
-
                 //Ajout animal dans cloture1
                 AnimalTSP.nbrAnimalCloture1++;
                 AnimalTSP.NiveauFaimCloture1 = 100;
@@ -824,7 +829,11 @@ namespace zoo_tycoon
                 PlayerTSP.nombreAnimaux++;
 
                 one.payload = AnimalTSP;
-                one.PutBaseImageLocation(new Point(100, 100));
+                //one.PutBaseImageLocation(new Point(100, 100)); Previous Head
+                one.PutBaseImageLocation(new Point(50, 100));
+
+                //one = TheGameController.DuplicateSprite("OURS2");
+                //one.PutBaseImageLocation(new Point(75, 100));
 
             }
             else

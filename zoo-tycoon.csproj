@@ -176,6 +176,12 @@
 	</ItemGroup>
   <ItemGroup>
     <None Include="Resources\trash_oject.png" />
+</ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\border.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\interaction.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

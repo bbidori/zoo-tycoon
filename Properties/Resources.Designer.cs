@@ -73,6 +73,16 @@ namespace zoo_tycoon.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap border {
+            get {
+                object obj = ResourceManager.GetObject("border", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CharacterSpriteSheet {
             get {
                 object obj = ResourceManager.GetObject("CharacterSpriteSheet", resourceCulture);
@@ -132,6 +142,16 @@ namespace zoo_tycoon.Properties {
         
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap interaction {
+            get {
+                object obj = ResourceManager.GetObject("interaction", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Perso_Standing_Back {
             get {
