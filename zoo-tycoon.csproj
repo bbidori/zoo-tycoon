@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimalSpritePayload.cs" />
+    <Compile Include="ClotureSpritePayload.cs" />
     <Compile Include="constants.cs" />
     <Compile Include="PlayerSpritePayload.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -18,9 +18,14 @@ namespace zoo_tycoon
 
         DateTime LastMovement = DateTime.UtcNow;  //Dernière fois qu'on a vérifié si on a appuyé une touche
         DateTime LastAddItem = DateTime.UtcNow - TimeSpan.FromSeconds(1);
+        DateTime LastMoneyDeducted = DateTime.UtcNow - TimeSpan.FromSeconds(1);
 
 
         Sprite PlayerCharacter = null;   //Le sprite du personnage
+        PlayerSpritePayload PlayerTSP = new PlayerSpritePayload();
+        AnimalSpritePayload AnimalTSP = new AnimalSpritePayload();
+        ClotureSpritePayload ClotureTSP = new ClotureSpritePayload();
+
         Direction LastDirection = Direction.none;  //dernière direction où on allait
         public Point PlayerLastLocation; //dernière position où on était
 
@@ -271,7 +276,7 @@ namespace zoo_tycoon
             //vérifie s'il est temps pour le visiteur de jetter des déchets
             if ((DateTime.UtcNow - visitorTSP.LastTrashThrowedTime).TotalMilliseconds > constants.TimeGenerateNewTrash)
             {
-                
+
                 if (TheGameController.RandomNumberGenerator.Next(100) < 10)
                 {
                     if (TheGameController.RandomNumberGenerator.Next(5) == 0)
@@ -303,7 +308,11 @@ namespace zoo_tycoon
                 {
                     //On doit appuyer enter pour commencer le jeu
                     if (TheGameController.IsKeyPressed(Keys.Enter))
+                    {
                         StartGame();
+                        CreateVisitor();
+                    }
+
                     //Quitte le DoTick si on a pas commencé le jeu
                     return;
                 }
@@ -311,20 +320,78 @@ namespace zoo_tycoon
                 CheckForKeyPress(Sender, e);
             }
 
-
-            //Ajoute des visiteurs selon le temps passé depuis la dernière fois qu'on a ajouté (ajoute à chaque 15 secondes)
+            //Ajoute des visiteurs selon le temps passé depuis la dernière fois qu'on a ajouté (ajoute à chaque 10 secondes)
             if ((DateTime.UtcNow - LastAddItem).TotalMilliseconds > constants.TimeBetweenReplenishVisitors)
             {
                 LastAddItem = DateTime.UtcNow;
 
-                //ItemTotalCount compte tous les items qu'il y a dans le jeu en ce moment
-                int Items = ItemTotalCount();
+                //ItemTotalCount compte tous les visiteurs et déchets qu'il y a dans le jeu en ce moment
+                int Items = ItemTotalCount("Object Etrangers");
 
                 //Si le parc n'a pas trop de déchets ou trop de visiteurs
                 if (Items < constants.MaxNumberItems)
                 {
                     CreateVisitor();
                 }
+            }
+
+            //À chaque 2 secondes, retire 0,10$ pour chaque déchet qu'il y a sur l'écran et 1$ pour chaque animal qui est affamé
+            if ((DateTime.UtcNow - LastMoneyDeducted).TotalMilliseconds > constants.TimeBeforeLosingMoney)
+            {
+                //compte le nombre de déchets sur l'écrant
+                int nbrDechets = ItemTotalCount("Dechets");
+
+                PlayerTSP.Solde = PlayerTSP.Solde - (0.1 * nbrDechets);
+
+                //vérifie s'il y a des animaux qui meurent de faim
+                foreach (Sprite animal in TheGameController.SpritesBasedOffAnything())
+                {
+                    if (animal.payload is AnimalSpritePayload)
+                    {
+                        if (AnimalTSP.NiveauFaimCloture1 != 0 && AnimalTSP.nbrAnimalCloture1 != 0)
+                        {
+                            AnimalTSP.NiveauFaimCloture1 = AnimalTSP.NiveauFaimCloture1 - 5;
+                        }
+                        if (AnimalTSP.NiveauFaimCloture2 != 0 && AnimalTSP.nbrAnimalCloture2 != 0)
+                        {
+                            AnimalTSP.NiveauFaimCloture2 = AnimalTSP.NiveauFaimCloture2 - 5;
+                        }
+                        if (AnimalTSP.NiveauFaimCloture3 != 0 && AnimalTSP.nbrAnimalCloture3 != 0)
+                        {
+                            AnimalTSP.NiveauFaimCloture3 = AnimalTSP.NiveauFaimCloture3 - 5;
+                        }
+                        if (AnimalTSP.NiveauFaimCloture4 != 0 && AnimalTSP.nbrAnimalCloture4 != 0)
+                        {
+                            AnimalTSP.NiveauFaimCloture4 = AnimalTSP.NiveauFaimCloture4 - 5;
+                        }
+
+                        if (AnimalTSP.NiveauFaimCloture1 <= 0 && AnimalTSP.nbrAnimalCloture1 != 0)
+                        {
+                            PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                        }
+                        if (AnimalTSP.NiveauFaimCloture2 <= 0 && AnimalTSP.nbrAnimalCloture2 != 0)
+                        {
+                            PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                        }
+                        if (AnimalTSP.NiveauFaimCloture3 <= 0 && AnimalTSP.nbrAnimalCloture3 != 0)
+                        {
+                            PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                        }
+                        if (AnimalTSP.NiveauFaimCloture4 <= 0 && AnimalTSP.nbrAnimalCloture4 != 0)
+                        {
+                            PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                        }
+                    }
+
+                }
+                Console.WriteLine("Niveau Animal 1 : " + AnimalTSP.NiveauFaimCloture1);
+                Console.WriteLine("Niveau Animal 2 : " + AnimalTSP.NiveauFaimCloture2);
+                Console.WriteLine("Niveau Animal 3 : " + AnimalTSP.NiveauFaimCloture3);
+                Console.WriteLine("Niveau Animal 4 : " + AnimalTSP.NiveauFaimCloture4);
+                PlayerTSP.Solde = Math.Round(PlayerTSP.Solde, 1);
+                Console.WriteLine("Solde : " + PlayerTSP.Solde);
+                //on update le temps ici car les opérations ci-dessus prennent du temps
+                LastMoneyDeducted = DateTime.UtcNow;
             }
         }
 
@@ -362,21 +429,50 @@ namespace zoo_tycoon
             }
             newSprite.payload = VisitorTSP;
             newSprite.AutomaticallyMoves = true;
+
+            //Gagne 2$ Pour chaque animal présent dans le jeu
+            PlayerTSP.Solde = PlayerTSP.Solde + (2 * ItemTotalCount("Animaux"));
         }
 
-        private int ItemTotalCount()
+        private int ItemTotalCount(string v)
         {
             int Counter = 0;
 
-            foreach (Sprite one in TheGameController.SpritesBasedOffAnything())
+            if (v.Equals("Dechets"))
             {
-                if (one.SpriteOriginName == SpriteName.VisiteurM.ToString())
-                    Counter++;
-                if (one.SpriteOriginName == SpriteName.VisiteurF.ToString())
-                    Counter++;
-                if (one.SpriteOriginName == SpriteName.Trash.ToString())
-                    Counter++;
+                foreach (Sprite one in TheGameController.SpritesBasedOffAnything())
+                {
+                    if (one.SpriteOriginName == SpriteName.Trash.ToString())
+                        Counter++;
+                }
             }
+            if (v.Equals("Object Etrangers"))
+            {
+                foreach (Sprite one in TheGameController.SpritesBasedOffAnything())
+                {
+                    if (one.SpriteOriginName == SpriteName.VisiteurM.ToString())
+                        Counter++;
+                    if (one.SpriteOriginName == SpriteName.VisiteurF.ToString())
+                        Counter++;
+                    if (one.SpriteOriginName == SpriteName.Trash.ToString())
+                        Counter++;
+                }
+            }
+            if (v.Equals("Animaux"))
+            {
+                foreach (Sprite one in TheGameController.SpritesBasedOffAnything())
+                {
+                    if (one.SpriteOriginName == SpriteName.Ours.ToString())
+                        Counter++;
+                    if (one.SpriteOriginName == SpriteName.Rhinoceros.ToString())
+                        Counter++;
+                    if (one.SpriteOriginName == SpriteName.Chèvre.ToString())
+                        Counter++;
+                    if (one.SpriteOriginName == SpriteName.Lion.ToString())
+                        Counter++;
+                }
+            }
+
             return Counter;
         }
 
@@ -386,7 +482,6 @@ namespace zoo_tycoon
         private void CheckForKeyPress(object sender, EventArgs e)
         {
             //cherche le payload du sprite pour savoir s'il est proche d'un autre sprite et qu'il peut intéragir ou non
-            PlayerSpritePayload TempTSP = (PlayerSpritePayload)PlayerCharacter.payload;
             bool left = false;
             bool right = false;
             bool up = false;
@@ -424,26 +519,12 @@ namespace zoo_tycoon
             //Verifie si la touche d'interraction a ete appuyé avant de faire d'autres mouvements
             if (interact)
             {
-                if (TempTSP.Interactible)
+                if (PlayerTSP.Interactible)
                 {
                     isInteracting = true;
                     PlayerCharacter.MovementSpeed = 0;
                     LastDirection = Direction.none;
                     MenuInterraction();
-                }
-                else
-                {
-                    isInteracting = true;
-                    PlayerCharacter.MovementSpeed = 0;
-                    LastDirection = Direction.none;
-                    //Pour Assim, appelle la nouvelle form qui montre les infos du personnage (ou les infos générales du jeu) ici.
-                    //Pour savoir les données du perso, tu dois faire les commandes suivantes:
-                    /*
-                     * PlayerSpritePayload TempTSP = (PlayerSpritePayload)PlayerCharacter.payload;
-                     * int soldeDuJoueur = TempTSP.Solde
-                     * int nombre d'animaux = TempTSP.nombreAnimaux;
-                     */
-                    //si tu veux ajouter d'autres données pour le joueur, il faut que tu ailles dans PlayerSpritePayload pour les ajouter
                 }
             }
 
@@ -457,7 +538,7 @@ namespace zoo_tycoon
                     PlayerCharacter.SetSpriteDirectionDegrees(135);
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
 
                 }
                 didsomething = true;
@@ -472,7 +553,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -486,7 +567,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedLeftRight;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -500,7 +581,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -514,7 +595,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -528,7 +609,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedLeftRight;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -542,7 +623,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedUpDown;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -556,7 +637,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedUpDown;
 
-                    TempTSP.Interactible = false;
+                    PlayerTSP.Interactible = false;
                 }
                 didsomething = true;
             }
@@ -567,8 +648,6 @@ namespace zoo_tycoon
                 PlayerCharacter.MovementSpeed = 0;
                 LastDirection = Direction.none;
             }
-
-            PlayerCharacter.payload = TempTSP;
         }
 
         private void MenuInterraction()
@@ -586,7 +665,7 @@ namespace zoo_tycoon
             formInteraction.Close();
             this.TopMost = true;
             this.TopMost = false;
-            this.Close();
+            isInteracting = false;
         }
 
         private void Option2Click(object sender, EventArgs e)
@@ -594,7 +673,15 @@ namespace zoo_tycoon
             formInteraction.Close();
             this.TopMost = true;
             this.TopMost = false;
+            /*
+             AnimalTSP.nbrAnimalCloture1++;
+                AnimalTSP.NiveauFaimCloture1 = 100;
+                ClotureTSP.TypeAnimalCloture1 = SpriteName.Ours.ToString();
+                ClotureTSP.nbrAnimalCloture1++;
+                PlayerTSP.nombreAnimaux++;
+             */
             showResult(2);
+            isInteracting = false;
         }
 
         private void Option1Click(object sender, EventArgs e)
@@ -602,13 +689,78 @@ namespace zoo_tycoon
             formInteraction.Close();
             this.TopMost = true;
             this.TopMost = false;
-            showResult(1);
+
+            //cherche la cloture avec laquelle on a interagit.
+            string nomAnimal = "-";
+            int nbrAnimalDansCloture = 0;
+            switch (PlayerTSP.nameLastClotureInteracted.ToString())
+            {
+                case "Cloture1":
+                    nomAnimal = ClotureTSP.TypeAnimalCloture1;
+                    nbrAnimalDansCloture = ClotureTSP.nbrAnimalCloture1;
+                    break;
+                case "Cloture2":
+                    nomAnimal = ClotureTSP.TypeAnimalCloture2;
+                    nbrAnimalDansCloture = ClotureTSP.nbrAnimalCloture2;
+                    break;
+                case "Cloture3":
+                    nomAnimal = ClotureTSP.TypeAnimalCloture3;
+                    nbrAnimalDansCloture = ClotureTSP.nbrAnimalCloture3;
+                    break;
+                case "Cloture4":
+                    nomAnimal = ClotureTSP.TypeAnimalCloture4;
+                    nbrAnimalDansCloture = ClotureTSP.nbrAnimalCloture4;
+                    break;
+            }
+            //vérifie qu'il y a un animal à l'interieur de la cloture.
+            if (nomAnimal != "-")
+            {
+                if (PlayerTSP.Solde > nbrAnimalDansCloture)
+                {
+                    switch (PlayerTSP.nameLastClotureInteracted.ToString())
+                    {
+                        case "Cloture1":
+                            AnimalTSP.NiveauFaimCloture1 = 100;
+                            break;
+                        case "Cloture2":
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            break;
+                        case "Cloture3":
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            break;
+                        case "Cloture4":
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            break;
+                    }
+
+                    PlayerTSP.Solde = PlayerTSP.Solde - nbrAnimalDansCloture;
+
+                    showResult(1);
+                }
+                else
+                {
+                    showResult(3);
+                }
+
+            }
+            isInteracting = false;
         }
 
         private void showResult(int v)
         {
             DialogResult result;
-            result = MessageBox.Show("l'option sélectionné est le " + v, "option Selectionné", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            switch (v)
+            {
+                case 1:
+                    result = MessageBox.Show("Tous les animaux de l'enclot ont été nourri", "Animaux nourri", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case 2:
+                    result = MessageBox.Show("Animal ajouté avec succès", "Ajout Animal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                default:
+                    result = MessageBox.Show("Vous n'avez pas assez d'argent pour faire cette opération", "Manque argent", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 isInteracting = false;
@@ -639,28 +791,36 @@ namespace zoo_tycoon
             PlayerCharacter.SpriteHitsSprite += PlayerCharacterHitsSomething;
 
             //Ajoute un payload au joueur
-            PlayerSpritePayload PlayerTSP = new PlayerSpritePayload();
             PlayerCharacter.payload = PlayerTSP;
-            AnimalSpritePayload AnimalTPS = new AnimalSpritePayload();
 
             //Test method, on vérifie si la librairie est bien installé en vérifiant si on peut load le player
             if (PlayerCharacter != null)
             {
                 PlayerCharacter.PutBaseImageLocation(constants.PlayerStartingPoint);
                 Sprite one = TheGameController.DuplicateSprite(SpriteName.Cloture1.ToString());
-                one.payload = AnimalTPS;
+                one.payload = ClotureTSP;
                 one.PutBaseImageLocation(new Point(50, 65));
                 one = TheGameController.DuplicateSprite(SpriteName.Cloture2.ToString());
-                one.payload = AnimalTPS;
+                one.payload = ClotureTSP;
                 one.PutBaseImageLocation(new Point(215, 65));
                 one = TheGameController.DuplicateSprite(SpriteName.Cloture3.ToString());
-                one.payload = AnimalTPS;
+                one.payload = ClotureTSP;
                 one.PutBaseImageLocation(new Point(50, 265));
                 one = TheGameController.DuplicateSprite(SpriteName.Cloture4.ToString());
-                one.payload = AnimalTPS;
+                one.payload = ClotureTSP;
                 one.PutBaseImageLocation(new Point(215, 265));
                 one = TheGameController.DuplicateSprite(SpriteName.Ours.ToString());
+
+                //Ajout animal dans cloture1
+                AnimalTSP.nbrAnimalCloture1++;
+                AnimalTSP.NiveauFaimCloture1 = 100;
+                ClotureTSP.TypeAnimalCloture1 = SpriteName.Ours.ToString();
+                ClotureTSP.nbrAnimalCloture1++;
+                PlayerTSP.nombreAnimaux++;
+
+                one.payload = AnimalTSP;
                 one.PutBaseImageLocation(new Point(100, 100));
+
             }
             else
             {
@@ -688,9 +848,6 @@ namespace zoo_tycoon
             if (!(Sender is Sprite)) return;
             Sprite Target = (Sprite)Sender;
 
-            //Console.WriteLine(e.TargetSprite.SpriteOriginName.ToString()); 
-
-
             if (!PlayingGame) return;
 
             Target.PutBaseImageLocation(PlayerLastLocation);
@@ -701,9 +858,10 @@ namespace zoo_tycoon
                 {
                     TempTSP.Interactible = false;
                 }
-                if (e.TargetSprite.payload is AnimalSpritePayload)
+                if (e.TargetSprite.payload is ClotureSpritePayload)
                 {
                     TempTSP.Interactible = true;
+                    TempTSP.nameLastClotureInteracted = e.TargetSprite.SpriteOriginName.ToString();
                 }
                 if (e.TargetSprite.payload is TrashSpritePayload)
                 {
@@ -779,20 +937,19 @@ namespace zoo_tycoon
         {
             if (PlayerCharacter != null)
             {
-                PlayerSpritePayload PlayerTSP = (PlayerSpritePayload)PlayerCharacter.payload;
-                int soldeFinal = PlayerTSP.Solde;
+                double soldeFinal = PlayerTSP.Solde;
                 DialogResult result;
                 result = MessageBox.Show("Félicitation! Vous avez terminé avec : " + soldeFinal + "$ en poche!", "Fin de la Partie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                    isInteracting = false;
+                    PlayerTSP.Interactible = false;
                 }
             }
 
         }
     }
 
-    public enum SpriteName { PlayerCharacter, VisiteurM, VisiteurF, Ours, Chèvre, Girafe, Cloture1, Cloture2, Cloture3, Cloture4, Trash }
+    public enum SpriteName { PlayerCharacter, VisiteurM, VisiteurF, Ours, Chèvre, Rhinoceros, Lion, Cloture1, Cloture2, Cloture3, Cloture4, Trash }
     public enum Direction { none, up, down, left, right, up_left, up_right, down_left, down_right }
 }
 

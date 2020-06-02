@@ -11,8 +11,8 @@ namespace zoo_tycoon
     {
         public Direction lastdirection = Direction.none;
         public bool Interactible = false;
-        public int Solde = 100;
+        public double Solde = 100;
         public int nombreAnimaux = 0;
-        public string nameLastObjectTouched = "";
+        public string nameLastClotureInteracted = "-";
     }
 }
