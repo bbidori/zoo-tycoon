@@ -140,6 +140,11 @@ namespace zoo_tycoon
             one.CannotMoveOutsideBox = true;
             one.SetSize(constants.VisiteurSize);
             one.CheckBeforeMove += VisiteurCheckBeforeMove;
+
+            one = new Sprite(TheGameController, Properties.Resources.trash_oject, constants.ClotureSize);
+            one.SetName(SpriteName.Trash.ToString());
+            one.CannotMoveOutsideBox = true;
+            one.SetSize(constants.TrashSize);
         }
         /// <summary>
         /// Pour les visiteurs, vérifie avant de faire chaque mouvement 
@@ -161,7 +166,7 @@ namespace zoo_tycoon
                 return;
             }
             visitorTSP = (VisitorSpritePayload)visiteur.payload;
-
+            visitorTSP.lastPosition = visiteur.BaseImageLocation;
             switch (visitorTSP.caseDeplacement)
             {
                 case 0:
@@ -266,11 +271,15 @@ namespace zoo_tycoon
             //vérifie s'il est temps pour le visiteur de jetter des déchets
             if ((DateTime.UtcNow - visitorTSP.LastTrashThrowedTime).TotalMilliseconds > constants.TimeGenerateNewTrash)
             {
+                
                 if (TheGameController.RandomNumberGenerator.Next(100) < 10)
                 {
                     if (TheGameController.RandomNumberGenerator.Next(5) == 0)
                     {
-                        Console.WriteLine("//////////////////////////////////Trash Throwed Now////////////////////////////////////////////////////");
+                        Sprite newSprite = TheGameController.DuplicateSprite(SpriteName.Trash.ToString());
+                        newSprite.PutBaseImageLocation(visiteur.BaseImageLocation);
+                        TrashSpritePayload trashTSP = new TrashSpritePayload();
+                        newSprite.payload = trashTSP;
                     }
                     //Update le temps, pour s'assurer qu'on ne jette pas des déchets chaque 0,1 secondes
                     visitorTSP.LastTrashThrowedTime = DateTime.UtcNow;
@@ -448,8 +457,6 @@ namespace zoo_tycoon
                     PlayerCharacter.SetSpriteDirectionDegrees(135);
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
-
-
                     TempTSP.Interactible = false;
 
                 }
@@ -562,10 +569,6 @@ namespace zoo_tycoon
             }
 
             PlayerCharacter.payload = TempTSP;
-            if (didsomething)
-            {
-                Console.WriteLine(PlayerLastLocation);
-            }
         }
 
         private void MenuInterraction()
@@ -701,6 +704,11 @@ namespace zoo_tycoon
                 if (e.TargetSprite.payload is AnimalSpritePayload)
                 {
                     TempTSP.Interactible = true;
+                }
+                if (e.TargetSprite.payload is TrashSpritePayload)
+                {
+                    TempTSP.Interactible = true;
+                    e.TargetSprite.Destroy();
                 }
                 Target.payload = TempTSP;
             }

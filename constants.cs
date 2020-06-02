@@ -21,6 +21,8 @@ namespace zoo_tycoon
 
         public static Size CharacterSize { get { return new Size(30, 40); } } //35,50 parfais
         public static Size OursSize { get { return new Size(40, 55); } }
+
+        public static Size TrashSize { get { return new Size(15, 20); } }
         public static Point PlayerStartingPoint { get { return new Point(420, 150); } }
         public static Point VisiteurStartingPoint { get { return new Point(371, 416); } }
         public static Size VisiteurSize { get { return new Size(25, 35); } } //35,50 parfais

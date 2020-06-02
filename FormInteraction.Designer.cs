@@ -70,7 +70,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(161, 179);
+            this.ClientSize = new System.Drawing.Size(157, 170);
             this.ControlBox = false;
             this.Controls.Add(this.Option3);
             this.Controls.Add(this.Option2);
