@@ -127,6 +127,18 @@
   <data name="dev" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dev.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icon_calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_calendar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_garbage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_garbage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_money" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_money.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_paw" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_paw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Perso_Standing_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Perso_Standing_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

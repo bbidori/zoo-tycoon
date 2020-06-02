@@ -13,5 +13,6 @@ namespace zoo_tycoon
         public bool Interactible = false;
         public int Solde = 100;
         public int nombreAnimaux = 0;
+        public double Jour = 1;
     }
 }

@@ -285,6 +285,11 @@ namespace zoo_tycoon
         /// <param name="e"></param>
         private void DoTick(object Sender, EventArgs e)
         {
+            if (PlayingGame)
+            {
+                ((PlayerSpritePayload)PlayerCharacter.payload).Jour += 0.02;
+                refreshStats();
+            }
             //S'assure qu'on ne puisse pas faire d'autres mouvements ou actions si on est en train d'interragir.
             //c'est une commande de sécurité
             if (!isInteracting)
@@ -671,6 +676,7 @@ namespace zoo_tycoon
 
             //Le jeu commence maintenat, DoTick va maintenant commencer à faire des actions
             PlayingGame = true;
+            stats.Visible = true;
         }
 
         /// <summary>
@@ -786,6 +792,14 @@ namespace zoo_tycoon
         private void ZooTycoon_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void refreshStats()
+        {
+            this.labelDate.Text = "Jour " + (Convert.ToInt32(((PlayerSpritePayload)PlayerCharacter.payload).Jour)).ToString();
+            this.labelMoney.Text = ((PlayerSpritePayload)PlayerCharacter.payload).Solde.ToString();
+            this.labelAnimals.Text = ((PlayerSpritePayload)PlayerCharacter.payload).nombreAnimaux.ToString();
+            this.labelGarbages.Text = ((PlayerSpritePayload)PlayerCharacter.payload).Solde.ToString();
         }
     }
 
