@@ -53,6 +53,12 @@
     <Compile Include="AnimalSpritePayload.cs" />
     <Compile Include="ClotureSpritePayload.cs" />
     <Compile Include="constants.cs" />
+    <Compile Include="FormAchat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAchat.Designer.cs">
+      <DependentUpon>FormAchat.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayerSpritePayload.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,6 +81,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAchat.resx">
+      <DependentUpon>FormAchat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ZooTycoon.resx">
       <DependentUpon>ZooTycoon.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,6 +200,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tileset_zoo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Goat_clipart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lion_clipart.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ours_clipart.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rhino_clipart.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

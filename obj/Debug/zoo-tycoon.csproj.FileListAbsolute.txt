@@ -50,3 +50,4 @@ G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.csproj.CopyComplete
 G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.exe
 G:\coding\zoo-tycoon\zoo-tycoon\obj\Debug\zoo-tycoon.pdb
 C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo-tycoon.csprojAssemblyReference.cache
+C:\Users\eluig\OneDrive\Desktop\Appli school\fichiers dev\projet github\zoo-tycoon\obj\Debug\zoo_tycoon.FormAchat.resources

@@ -48,11 +48,14 @@
 	Chaque espèce d'animal à un prix d'achat différent. 
 	Vous ne pouvez placer qu'une seule fois chaque espèce animale (ce n'est pas un zoo si vous avez 4 enclots de chèvres!)
 	Vous commencez la partie avec un ours. Il faut bien avoir quelque chose d'exceptionnel pour attirer les gens!
-	Les animaux d'une même cloture ont une seule barre de faim. Elle commence à 100 lorsque vous les nourrissez et diminue de 5 à chaque 2 secondes.
-	Lorsque la barre des animaux atteint le 0, les animaux se mettent à manger votre argent pour survivre (littéralement 1$ à chaque 2 secondes pour chaque animal affamé)
+	Les animaux d'une même cloture ont une seule barre de faim. Elle commence à 100 lorsque vous les nourrissez et diminue de 1 à chaque 2 secondes.
+	Lorsque la barre des animaux atteint le 0, les animaux se mettent à manger votre argent pour survivre (littéralement 2$ à chaque 2 secondes pour chaque animal affamé)
 	L'option nourrir donne de la nourriture à tous les animaux de l'enclot. 
 	Lorsque vous ajoutez un animal, vous célébrez l'occasion en donnant de la nourriture à tous les animaux de l'enclot.
-	Le coût pour nourrir un seul animal est de 1$, ce qui n'est pas cher du tout! Mais est-ce que vous allez être capable de vous rappeler de les nourrir tout en gérant le zoo?
+	Le coût pour nourrir un seul animal est de 1$. 
+	Mais n'oubliez pas que plus d'animaux dans l'enclot fait en sorte qu'ils mangent plus vite!
+	Il faudra leur donner à manger plus souvent alors.
+	
  
  
  

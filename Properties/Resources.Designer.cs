@@ -123,6 +123,16 @@ namespace zoo_tycoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Goat_clipart {
+            get {
+                object obj = ResourceManager.GetObject("Goat_clipart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_calendar {
             get {
                 object obj = ResourceManager.GetObject("icon_calendar", resourceCulture);
@@ -153,9 +163,29 @@ namespace zoo_tycoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap lion_clipart {
+            get {
+                object obj = ResourceManager.GetObject("lion_clipart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap money_icon {
             get {
                 object obj = ResourceManager.GetObject("money_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ours_clipart {
+            get {
+                object obj = ResourceManager.GetObject("ours_clipart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,6 +226,16 @@ namespace zoo_tycoon.Properties {
         internal static System.Drawing.Bitmap Perso_Standing_Right {
             get {
                 object obj = ResourceManager.GetObject("Perso_Standing_Right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rhino_clipart {
+            get {
+                object obj = ResourceManager.GetObject("rhino_clipart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

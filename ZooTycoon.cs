@@ -35,6 +35,7 @@ namespace zoo_tycoon
 
         DateTime GameStartTime = DateTime.UtcNow;
         FormInteraction formInteraction;
+        FormAchat formAchat;
 
         public ZooTycoon()
         {
@@ -108,7 +109,7 @@ namespace zoo_tycoon
             one.SetSize(constants.AnimalSize);
 
             //Chevre(256, 608)
-            one = new Sprite(new Point(256, 608), TheGameController, Properties.Resources.tileset_zoo, 32, 32, 800, 8 );
+            one = new Sprite(new Point(256, 608), TheGameController, Properties.Resources.tileset_zoo, 32, 32, 800, 8);
             one.SetName(SpriteName.Chèvre.ToString());
             one.AutomaticallyMoves = false;
             one.CannotMoveOutsideBox = true;
@@ -124,7 +125,7 @@ namespace zoo_tycoon
             one.SetSpriteDirectionDegrees(180);
             one.MovementSpeed = 0;
             one.SetSize(constants.AnimalSize);
-            
+
             //Rihno(512, 640)
             one = new Sprite(new Point(512, 640), TheGameController, Properties.Resources.tileset_zoo, 32, 32, 800, 8);
             one.SetName(SpriteName.Rhinoceros.ToString());
@@ -133,7 +134,7 @@ namespace zoo_tycoon
             one.SetSpriteDirectionDegrees(180);
             one.MovementSpeed = 0;
             one.SetSize(constants.AnimalSize);
-            
+
 
             //////////////////////////////////////////////////////////
             one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
@@ -393,11 +394,11 @@ namespace zoo_tycoon
                         {
                             if (AnimalTSP.NiveauFaimCloture1 > 0 && AnimalTSP.nbrAnimalCloture1 != 0)
                             {
-                                AnimalTSP.NiveauFaimCloture1 = AnimalTSP.NiveauFaimCloture1 - 5;
+                                AnimalTSP.NiveauFaimCloture1 = AnimalTSP.NiveauFaimCloture1 - 1;
                             }
                             if (AnimalTSP.NiveauFaimCloture1 <= 0 && AnimalTSP.nbrAnimalCloture1 != 0)
                             {
-                                PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                                PlayerTSP.Solde = PlayerTSP.Solde - 2;
                             }
                             nbrAnimalCompte1++;
                         }
@@ -405,11 +406,11 @@ namespace zoo_tycoon
                         {
                             if (AnimalTSP.NiveauFaimCloture2 > 0 && AnimalTSP.nbrAnimalCloture2 != 0)
                             {
-                                AnimalTSP.NiveauFaimCloture2 = AnimalTSP.NiveauFaimCloture2 - 5;
+                                AnimalTSP.NiveauFaimCloture2 = AnimalTSP.NiveauFaimCloture2 - 1;
                             }
                             if (AnimalTSP.NiveauFaimCloture2 <= 0 && AnimalTSP.nbrAnimalCloture2 != 0)
                             {
-                                PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                                PlayerTSP.Solde = PlayerTSP.Solde - 2;
                             }
                             nbrAnimalCompte2++;
                         }
@@ -417,11 +418,11 @@ namespace zoo_tycoon
                         {
                             if (AnimalTSP.NiveauFaimCloture3 > 0 && AnimalTSP.nbrAnimalCloture3 != 0)
                             {
-                                AnimalTSP.NiveauFaimCloture3 = AnimalTSP.NiveauFaimCloture3 - 5;
+                                AnimalTSP.NiveauFaimCloture3 = AnimalTSP.NiveauFaimCloture3 - 1;
                             }
                             if (AnimalTSP.NiveauFaimCloture3 <= 0 && AnimalTSP.nbrAnimalCloture3 != 0)
                             {
-                                PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                                PlayerTSP.Solde = PlayerTSP.Solde - 2;
                             }
                             nbrAnimalCompte3++;
                         }
@@ -429,11 +430,11 @@ namespace zoo_tycoon
                         {
                             if (AnimalTSP.NiveauFaimCloture4 > 0 && AnimalTSP.nbrAnimalCloture4 != 0)
                             {
-                                AnimalTSP.NiveauFaimCloture4 = AnimalTSP.NiveauFaimCloture4 - 5;
+                                AnimalTSP.NiveauFaimCloture4 = AnimalTSP.NiveauFaimCloture4 - 1;
                             }
                             if (AnimalTSP.NiveauFaimCloture4 <= 0 && AnimalTSP.nbrAnimalCloture4 != 0)
                             {
-                                PlayerTSP.Solde = PlayerTSP.Solde - 1;
+                                PlayerTSP.Solde = PlayerTSP.Solde - 2;
                             }
                             nbrAnimalCompte4++;
                         }
@@ -572,10 +573,13 @@ namespace zoo_tycoon
             {
                 if (PlayerTSP.Interactible)
                 {
-                    isInteracting = true;
-                    PlayerCharacter.MovementSpeed = 0;
-                    LastDirection = Direction.none;
-                    MenuInterraction();
+                    if (PlayerTSP.nameLastClotureInteracted != "-")
+                    {
+                        isInteracting = true;
+                        PlayerCharacter.MovementSpeed = 0;
+                        LastDirection = Direction.none;
+                        MenuInterraction();
+                    }
                 }
             }
             if (down && up) return;
@@ -593,6 +597,7 @@ namespace zoo_tycoon
                     PlayerCharacter.AutomaticallyMoves = true;
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
 
                 }
                 didsomething = true;
@@ -608,6 +613,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -622,6 +628,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedLeftRight;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -636,6 +643,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -650,6 +658,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedMixDirection;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -664,6 +673,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedLeftRight;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -678,6 +688,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedUpDown;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -692,6 +703,7 @@ namespace zoo_tycoon
                     PlayerCharacter.MovementSpeed = constants.PlayerSpeedUpDown;
 
                     PlayerTSP.Interactible = false;
+                    PlayerTSP.nameLastClotureInteracted = "-";
                 }
                 didsomething = true;
             }
@@ -717,21 +729,36 @@ namespace zoo_tycoon
                     nomAnimal = ClotureTSP.TypeAnimalCloture1;
                     formInteraction.button4.Text = "Niveau de Faim : " + AnimalTSP.NiveauFaimCloture1.ToString() +
                         "\n Type d'animal : " + nomAnimal;
+                    if (ClotureTSP.nbrAnimalCloture1 >= 3)
+                        formInteraction.button2.Enabled = false;
+                    formInteraction.Visible = true;
                     break;
                 case "Cloture2":
                     nomAnimal = ClotureTSP.TypeAnimalCloture2;
                     formInteraction.button4.Text = "Niveau de Faim : " + AnimalTSP.NiveauFaimCloture2.ToString() + "\n Type d'animal : " + nomAnimal;
+                    if (ClotureTSP.nbrAnimalCloture2 >= 3)
+                        formInteraction.button2.Enabled = false;
+                    formInteraction.Visible = true;
                     break;
                 case "Cloture3":
                     nomAnimal = ClotureTSP.TypeAnimalCloture3;
                     formInteraction.button4.Text = "Niveau de Faim : " + AnimalTSP.NiveauFaimCloture3.ToString() + "\n Type d'animal : " + nomAnimal;
+                    if (ClotureTSP.nbrAnimalCloture3 >= 3)
+                        formInteraction.button2.Enabled = false;
+                    formInteraction.Visible = true;
                     break;
                 case "Cloture4":
                     nomAnimal = ClotureTSP.TypeAnimalCloture4;
                     formInteraction.button4.Text = "Niveau de Faim : " + AnimalTSP.NiveauFaimCloture4.ToString() + "\n Type d'animal : " + nomAnimal;
+                    if (ClotureTSP.nbrAnimalCloture4 >= 3)
+                        formInteraction.button2.Enabled = false;
+                    formInteraction.Visible = true;
+                    break;
+                default:
+                    formInteraction.Close();
                     break;
             }
-            formInteraction.Visible = true;
+
         }
         private void Option3Click(object sender, EventArgs e)
         {
@@ -746,15 +773,7 @@ namespace zoo_tycoon
             formInteraction.Close();
             this.TopMost = true;
             this.TopMost = false;
-            /*
-             AnimalTSP.nbrAnimalCloture1++;
-                AnimalTSP.NiveauFaimCloture1 = 100;
-                ClotureTSP.TypeAnimalCloture1 = SpriteName.Ours.ToString();
-                ClotureTSP.nbrAnimalCloture1++;
-                PlayerTSP.nombreAnimaux++;
-             */
-            showResult(2);
-            isInteracting = false;
+            MenuAchat();
         }
 
         private void Option1Click(object sender, EventArgs e)
@@ -839,6 +858,589 @@ namespace zoo_tycoon
                 isInteracting = false;
             }
         }
+        private void MenuAchat()
+        {
+            formAchat = new FormAchat();
+            formAchat.SetDesktopLocation(100, 100);
+            formAchat.button1.Click += new System.EventHandler(this.AchatChevreClick);
+            formAchat.button2.Click += new System.EventHandler(this.AchatOursClick);
+            formAchat.button3.Click += new System.EventHandler(this.AchatRhinoClick);
+            formAchat.button4.Click += new System.EventHandler(this.AchatLionClick);
+            formAchat.BtnAnnuler.Click += new System.EventHandler(this.AnnulerClick);
+            formAchat.BtnChevreCoût.Text = "Coût : " + AnimalTSP.PrixAchatChevre.ToString() + "$";
+            formAchat.BtnOursCoût.Text = "Coût : " + AnimalTSP.PrixAchatOurs.ToString() + "$";
+            formAchat.BtnRhinoCoût.Text = "Coût : " + AnimalTSP.PrixAchatRhinoceros.ToString() + "$";
+            formAchat.BtnLionCoût.Text = "Coût : " + AnimalTSP.PrixAchatLion.ToString() + "$";
+            switch (PlayerTSP.nameLastClotureInteracted.ToString())
+            {
+                case "Cloture1":
+                    if (ClotureTSP.TypeAnimalCloture1.Equals(SpriteName.Ours.ToString()) && ClotureTSP.nbrAnimalCloture1 != 3)
+                    {
+                        formAchat.button1.Enabled = false;
+                        formAchat.button2.Enabled = true;
+                        formAchat.button3.Enabled = false;
+                        formAchat.button4.Enabled = false;
+                        formAchat.Visible = true;
+                    }
+                    break;
+                case "Cloture2":
+                    if (ClotureTSP.nbrAnimalCloture2 != 3)
+                    {
+                        if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Chèvre.ToString()))
+                        {
+                            formAchat.button1.Enabled = true;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = false;
+                            formAchat.button4.Enabled = false;
+                        }
+                        else if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Rhinoceros.ToString()))
+                        {
+                            formAchat.button1.Enabled = false;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = true;
+                            formAchat.button4.Enabled = false;
+                        }
+                        else if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Lion.ToString()))
+                        {
+                            formAchat.button1.Enabled = false;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = false;
+                            formAchat.button4.Enabled = true;
+                        }
+                        else
+                        {
+                            formAchat.button2.Enabled = false;
+                            if (ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Chèvre.ToString()) || ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Chèvre.ToString()))
+                            {
+                                formAchat.button1.Enabled = false;
+                            }
+                            if (ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Rhinoceros.ToString()) || ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Rhinoceros.ToString()))
+                            {
+                                formAchat.button3.Enabled = false;
+                            }
+                            if (ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Lion.ToString()) || ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Lion.ToString()))
+                            {
+                                formAchat.button4.Enabled = false;
+                            }
+                        }
+                        formAchat.Visible = true;
+                    }
+                    break;
+                case "Cloture3":
+                    if (ClotureTSP.nbrAnimalCloture3 != 3)
+                    {
+                        if (ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Chèvre.ToString()))
+                        {
+                            formAchat.button1.Enabled = true;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = false;
+                            formAchat.button4.Enabled = false;
+                        }
+                        else if (ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Rhinoceros.ToString()))
+                        {
+                            formAchat.button1.Enabled = false;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = true;
+                            formAchat.button4.Enabled = false;
+                        }
+                        else if (ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Lion.ToString()))
+                        {
+                            formAchat.button1.Enabled = false;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = false;
+                            formAchat.button4.Enabled = true;
+                        }
+                        else
+                        {
+                            formAchat.button2.Enabled = false;
+                            if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Chèvre.ToString()) || ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Chèvre.ToString()))
+                            {
+                                formAchat.button1.Enabled = false;
+                            }
+                            if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Rhinoceros.ToString()) || ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Rhinoceros.ToString()))
+                            {
+                                formAchat.button3.Enabled = false;
+                            }
+                            if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Lion.ToString()) || ClotureTSP.TypeAnimalCloture4
+                                .Equals(SpriteName.Lion.ToString()))
+                            {
+                                formAchat.button4.Enabled = false;
+                            }
+                        }
+                        formAchat.Visible = true;
+                    }
+                    break;
+                case "Cloture4":
+                    if (ClotureTSP.nbrAnimalCloture4 != 3)
+                    {
+                        if (ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Chèvre.ToString()))
+                        {
+                            formAchat.button1.Enabled = true;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = false;
+                            formAchat.button4.Enabled = false;
+                        }
+                        else if (ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Rhinoceros.ToString()))
+                        {
+                            formAchat.button1.Enabled = false;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = true;
+                            formAchat.button4.Enabled = false;
+                        }
+                        else if (ClotureTSP.TypeAnimalCloture4.Equals(SpriteName.Lion.ToString()))
+                        {
+                            formAchat.button1.Enabled = false;
+                            formAchat.button2.Enabled = false;
+                            formAchat.button3.Enabled = false;
+                            formAchat.button4.Enabled = true;
+                        }
+                        else
+                        {
+                            formAchat.button2.Enabled = false;
+                            if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Chèvre.ToString()) || ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Chèvre.ToString()))
+                            {
+                                formAchat.button1.Enabled = false;
+                            }
+                            if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Rhinoceros.ToString()) || ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Rhinoceros.ToString()))
+                            {
+                                formAchat.button3.Enabled = false;
+                            }
+                            if (ClotureTSP.TypeAnimalCloture2.Equals(SpriteName.Lion.ToString()) || ClotureTSP.TypeAnimalCloture3.Equals(SpriteName.Lion.ToString()))
+                            {
+                                formAchat.button4.Enabled = false;
+                            }
+                        }
+                        formAchat.Visible = true;
+                    }
+                    break;
+                default:
+                    formAchat.Close();
+                    break;
+            }
+            
+        }
+
+        private void AnnulerClick(object sender, EventArgs e)
+        {
+            formAchat.Close();
+            this.TopMost = true;
+            this.TopMost = false;
+            isInteracting = false;
+        }
+
+        private void AchatLionClick(object sender, EventArgs e)
+        {
+            if (PlayerTSP.Solde > AnimalTSP.PrixAchatLion)
+            {
+                switch (PlayerTSP.nameLastClotureInteracted.ToString())
+                {
+                    case "Cloture2":
+                        if (ClotureTSP.nbrAnimalCloture2 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.TypeAnimalCloture2 = SpriteName.Lion.ToString();
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(220, 95));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture2 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(245, 95));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(270, 95));
+                        }
+                        break;
+                    case "Cloture3":
+                        if (ClotureTSP.nbrAnimalCloture3 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.TypeAnimalCloture3 = SpriteName.Lion.ToString();
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(55, 290));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture3 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(80, 290));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(105, 290));
+                        }
+                        break;
+                    case "Cloture4":
+                        if (ClotureTSP.nbrAnimalCloture4 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.TypeAnimalCloture4 = SpriteName.Lion.ToString();
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(220, 290));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture4 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(245, 290));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(270, 290));
+                        }
+                        break;
+                }
+                showResult(2);
+                PlayerTSP.Solde = PlayerTSP.Solde - AnimalTSP.PrixAchatLion;
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+            else
+            {
+                showResult(4);
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+        }
+
+        private void AchatRhinoClick(object sender, EventArgs e)
+        {
+            if (PlayerTSP.Solde > AnimalTSP.PrixAchatRhinoceros)
+            {
+                switch (PlayerTSP.nameLastClotureInteracted.ToString())
+                {
+                    case "Cloture2":
+                        if (ClotureTSP.nbrAnimalCloture2 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.TypeAnimalCloture2 = SpriteName.Rhinoceros.ToString();
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(220, 95));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture2 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(245, 95));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(270, 95));
+                        }
+                        break;
+                    case "Cloture3":
+                        if (ClotureTSP.nbrAnimalCloture3 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.TypeAnimalCloture3 = SpriteName.Rhinoceros.ToString();
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(55, 290));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture3 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(80, 290));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(105, 290));
+                        }
+                        break;
+                    case "Cloture4":
+                        if (ClotureTSP.nbrAnimalCloture4 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.TypeAnimalCloture4 = SpriteName.Rhinoceros.ToString();
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(220, 290));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture4 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(245, 290));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(270, 290));
+                        }
+                        break;
+                }
+                showResult(2);
+                PlayerTSP.Solde = PlayerTSP.Solde - AnimalTSP.PrixAchatRhinoceros;
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+            else
+            {
+                showResult(4);
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+        }
+
+        private void AchatOursClick(object sender, EventArgs e)
+        {
+            if (PlayerTSP.Solde > AnimalTSP.PrixAchatOurs)
+            {
+                if (PlayerTSP.nameLastClotureInteracted.ToString().Equals("Cloture1"))
+                {
+                    if (ClotureTSP.nbrAnimalCloture1 == 1)
+                    {
+                        Sprite animal = TheGameController.DuplicateSprite(SpriteName.Ours.ToString());
+                        AnimalTSP.nbrAnimalCloture1++;
+                        AnimalTSP.NiveauFaimCloture1 = 100;
+                        ClotureTSP.nbrAnimalCloture1++;
+                        PlayerTSP.nombreAnimaux++;
+                        animal.payload = AnimalTSP;
+                        animal.PutBaseImageLocation(new Point(85, 95));
+                    }
+                    else
+                    {
+                        Sprite animal = TheGameController.DuplicateSprite(SpriteName.Ours.ToString());
+                        AnimalTSP.nbrAnimalCloture1++;
+                        AnimalTSP.NiveauFaimCloture1 = 100;
+                        ClotureTSP.nbrAnimalCloture1++;
+                        PlayerTSP.nombreAnimaux++;
+                        animal.payload = AnimalTSP;
+                        animal.PutBaseImageLocation(new Point(110, 95));
+                    }
+                }
+
+                showResult(2);
+                PlayerTSP.Solde = PlayerTSP.Solde - AnimalTSP.PrixAchatOurs;
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+            else
+            {
+                showResult(4);
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+        }
+
+        private void AchatChevreClick(object sender, EventArgs e)
+        {
+            if (PlayerTSP.Solde > AnimalTSP.PrixAchatChevre)
+            {
+                switch (PlayerTSP.nameLastClotureInteracted.ToString())
+                {
+                    case "Cloture2":
+                        if (ClotureTSP.nbrAnimalCloture2 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.TypeAnimalCloture2 = SpriteName.Chèvre.ToString();
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(220, 95));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture2 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(245, 95));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture2++;
+                            AnimalTSP.NiveauFaimCloture2 = 100;
+                            ClotureTSP.nbrAnimalCloture2++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(270, 95));
+                        }
+                        break;
+                    case "Cloture3":
+                        if (ClotureTSP.nbrAnimalCloture3 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.TypeAnimalCloture3 = SpriteName.Chèvre.ToString();
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(55, 290));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture3 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(80, 290));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture3++;
+                            AnimalTSP.NiveauFaimCloture3 = 100;
+                            ClotureTSP.nbrAnimalCloture3++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(105, 290));
+                        }
+                        break;
+                    case "Cloture4":
+                        if (ClotureTSP.nbrAnimalCloture4 == 0)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.TypeAnimalCloture4 = SpriteName.Chèvre.ToString();
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(220, 290));
+                        }
+                        else if (ClotureTSP.nbrAnimalCloture4 == 1)
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(245, 290));
+                        }
+                        else
+                        {
+                            Sprite animal = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
+                            AnimalTSP.nbrAnimalCloture4++;
+                            AnimalTSP.NiveauFaimCloture4 = 100;
+                            ClotureTSP.nbrAnimalCloture4++;
+                            PlayerTSP.nombreAnimaux++;
+                            animal.payload = AnimalTSP;
+                            animal.PutBaseImageLocation(new Point(270, 290));
+                        }
+                        break;
+                }
+                showResult(2);
+                PlayerTSP.Solde = PlayerTSP.Solde - AnimalTSP.PrixAchatChevre;
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+            else
+            {
+                showResult(4);
+                formAchat.Close();
+                this.TopMost = true;
+                this.TopMost = false;
+                isInteracting = false;
+            }
+        }
 
         /// <summary>
         /// On fait cette méthode après que le joueur est appuyé sur enter pour commencer la partie.
@@ -893,37 +1495,6 @@ namespace zoo_tycoon
                 PlayerTSP.nombreAnimaux++;
                 one.payload = AnimalTSP;
                 one.PutBaseImageLocation(new Point(55, 95));
-                
-                //Ajout animal dans cloture2
-                one = TheGameController.DuplicateSprite(SpriteName.Chèvre.ToString());
-                AnimalTSP.nbrAnimalCloture2++;
-                AnimalTSP.NiveauFaimCloture2 = 100;
-                ClotureTSP.TypeAnimalCloture2 = SpriteName.Chèvre.ToString();
-                ClotureTSP.nbrAnimalCloture2++;
-                PlayerTSP.nombreAnimaux++;
-                one.payload = AnimalTSP;
-                one.PutBaseImageLocation(new Point(220, 95));
-
-                //Ajout animal dans cloture3
-                one = TheGameController.DuplicateSprite(SpriteName.Rhinoceros.ToString());
-                AnimalTSP.nbrAnimalCloture3++;
-                AnimalTSP.NiveauFaimCloture3 = 100;
-                ClotureTSP.TypeAnimalCloture3 = SpriteName.Rhinoceros.ToString();
-                ClotureTSP.nbrAnimalCloture3++;
-                PlayerTSP.nombreAnimaux++;
-                one.payload = AnimalTSP;
-                one.PutBaseImageLocation(new Point(55, 290));
-
-                //Ajout animal dans cloture4
-                one = TheGameController.DuplicateSprite(SpriteName.Lion.ToString());
-                AnimalTSP.nbrAnimalCloture4++;
-                AnimalTSP.NiveauFaimCloture4 = 100;
-                ClotureTSP.TypeAnimalCloture4 = SpriteName.Lion.ToString();
-                ClotureTSP.nbrAnimalCloture4++;
-                PlayerTSP.nombreAnimaux++;
-                one.payload = AnimalTSP;
-                //one.PutBaseImageLocation(new Point(75, 95));
-                one.PutBaseImageLocation(new Point(220, 290));
             }
             else
             {
@@ -953,7 +1524,7 @@ namespace zoo_tycoon
             Sprite Target = (Sprite)Sender;
 
             if (!PlayingGame) return;
-            if(e.TargetSprite.payload is ClotureSpritePayload || e.TargetSprite.payload is TrashSpritePayload)
+            if (e.TargetSprite.payload is ClotureSpritePayload || e.TargetSprite.payload is TrashSpritePayload)
             {
                 Target.PutBaseImageLocation(PlayerLastLocation);
             }

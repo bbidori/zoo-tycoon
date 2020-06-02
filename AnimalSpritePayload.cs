@@ -17,10 +17,10 @@ namespace zoo_tycoon
         public int NiveauFaimCloture3 = 100;
         public int NiveauFaimCloture4 = 100;
 
-        public int PrixAchatChevre = 0;
-        public int PrixAchatOurs = 0;
-        public int PrixAchatRhinoceros = 0;
-        public int PrixAchatLion = 0;
+        public int PrixAchatChevre = 35;
+        public int PrixAchatOurs = 55;
+        public int PrixAchatRhinoceros = 75;
+        public int PrixAchatLion = 100;
 
         //nombre d'animal dans chaque cloture
         public int nbrAnimalCloture1 = 0;
