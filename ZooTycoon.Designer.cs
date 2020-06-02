@@ -166,7 +166,6 @@
             this.Text = "Zoo Tycoon";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZooTycoon_FormClosing);
-            this.Load += new System.EventHandler(this.ZooTycoon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainDrawingArea)).EndInit();
             this.stats.ResumeLayout(false);
             this.stats.PerformLayout();

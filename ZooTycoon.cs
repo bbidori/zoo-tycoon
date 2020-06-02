@@ -954,17 +954,12 @@ namespace zoo_tycoon
 
         }
 
-        private void ZooTycoon_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public void refreshStats()
         {
             this.labelDate.Text = "Jour " + (Convert.ToInt32(((PlayerSpritePayload)PlayerCharacter.payload).Jour)).ToString();
             this.labelMoney.Text = ((PlayerSpritePayload)PlayerCharacter.payload).Solde.ToString();
             this.labelAnimals.Text = ((PlayerSpritePayload)PlayerCharacter.payload).nombreAnimaux.ToString();
-            //this.labelGarbages.Text = ItemTotalCount("Dechets");
+            this.labelGarbages.Text = ItemTotalCount("Dechets").ToString();
         }
     }
 
