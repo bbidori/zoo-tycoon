@@ -799,7 +799,7 @@ namespace zoo_tycoon
             this.labelDate.Text = "Jour " + (Convert.ToInt32(((PlayerSpritePayload)PlayerCharacter.payload).Jour)).ToString();
             this.labelMoney.Text = ((PlayerSpritePayload)PlayerCharacter.payload).Solde.ToString();
             this.labelAnimals.Text = ((PlayerSpritePayload)PlayerCharacter.payload).nombreAnimaux.ToString();
-            this.labelGarbages.Text = ((PlayerSpritePayload)PlayerCharacter.payload).Solde.ToString();
+            //this.labelGarbages.Text = ItemTotalCount("Dechets");
         }
     }
 
