@@ -34,10 +34,10 @@
             // 
             // MainDrawingArea
             // 
-            this.MainDrawingArea.Location = new System.Drawing.Point(-1, -4);
+            this.MainDrawingArea.Location = new System.Drawing.Point(-1, 11);
             this.MainDrawingArea.Margin = new System.Windows.Forms.Padding(2);
             this.MainDrawingArea.Name = "MainDrawingArea";
-            this.MainDrawingArea.Size = new System.Drawing.Size(1604, 913);
+            this.MainDrawingArea.Size = new System.Drawing.Size(1604, 909);
             this.MainDrawingArea.TabIndex = 5;
             this.MainDrawingArea.TabStop = false;
             // 
@@ -52,7 +52,6 @@
             this.Name = "ZooTycoon";
             this.Text = "Zoo Tycoon";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZooTycoon_FormClosing);
             this.Load += new System.EventHandler(this.ZooTycoon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainDrawingArea)).EndInit();
             this.ResumeLayout(false);

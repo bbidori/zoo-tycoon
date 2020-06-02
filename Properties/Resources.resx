@@ -118,23 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="background_zoo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\background_zoo2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CharacterSpriteSheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CharacterSpriteSheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="dev" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dev.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Perso_Standing_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Perso_Standing_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Perso_Standing_Facing" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Perso_Standing_Facing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Perso_Standing_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Perso_Standing_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Perso_Standing_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Perso_Standing_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,19 +127,40 @@
   <data name="SpriteSheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SpriteSheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Temps_Background_Farm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Temps_Background_Farm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="VisiteurFemale" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\VisiteurFemale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Perso_Standing_Facing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Perso_Standing_Facing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VisiteurMale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VisiteurMale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Temps_Background_Farm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Temps_Background_Farm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterSpriteSheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterSpriteSheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background_zoo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background_zoo2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Perso_Standing_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Perso_Standing_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VisiteurFemale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VisiteurFemale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="zoo_tileset" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoo_tileset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Perso_Standing_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Perso_Standing_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Zoo_Tycoon_Opening" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Zoo_Tycoon_Opening.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="border" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\border.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="interaction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\interaction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

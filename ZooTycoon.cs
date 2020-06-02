@@ -102,6 +102,16 @@ namespace zoo_tycoon
             one.SetSpriteDirectionDegrees(180);
             one.MovementSpeed = 0;
             one.SetSize(constants.OursSize);
+
+            one = new Sprite(new Point(0, 512), TheGameController, Properties.Resources.zoo_tileset, 32, 32, 800, 8);
+            one.SetName("OURS2");
+
+            one.AutomaticallyMoves = false;
+            one.CannotMoveOutsideBox = true;
+            one.SetSpriteDirectionDegrees(180);
+            one.MovementSpeed = 0;
+            one.SetSize(constants.OursSize);
+
             //////////////////////////////////////////////////////////
             one = new Sprite(TheGameController, Properties.Resources.dev, constants.ClotureSize);
             one.SetName(SpriteName.Cloture1.ToString());
@@ -407,36 +417,18 @@ namespace zoo_tycoon
             }
             if (TheGameController.IsKeyPressed(Keys.X))
             {
-                interact = true;
+                if (TempTSP.Interactible)
+                {
+                    //isInteracting = true;
+                    //PlayerCharacter.MovementSpeed = 0;
+                    //LastDirection = Direction.none;
+                    formInteraction = new FormInteraction();
+                    formInteraction.Show();
+                    
+                }
             }
             if (down && up) return;
             if (left && right) return;
-
-            //Verifie si la touche d'interraction a ete appuyé avant de faire d'autres mouvements
-            if (interact)
-            {
-                if (TempTSP.Interactible)
-                {
-                    isInteracting = true;
-                    PlayerCharacter.MovementSpeed = 0;
-                    LastDirection = Direction.none;
-                    MenuInterraction();
-                }
-                else
-                {
-                    isInteracting = true;
-                    PlayerCharacter.MovementSpeed = 0;
-                    LastDirection = Direction.none;
-                    //Pour Assim, appelle la nouvelle form qui montre les infos du personnage (ou les infos générales du jeu) ici.
-                    //Pour savoir les données du perso, tu dois faire les commandes suivantes:
-                    /*
-                     * PlayerSpritePayload TempTSP = (PlayerSpritePayload)PlayerCharacter.payload;
-                     * int soldeDuJoueur = TempTSP.Solde
-                     * int nombre d'animaux = TempTSP.nombreAnimaux;
-                     */
-                    //si tu veux ajouter d'autres données pour le joueur, il faut que tu ailles dans PlayerSpritePayload pour les ajouter
-                }
-            }
 
             if (!didsomething && left && up)
             {
@@ -568,15 +560,7 @@ namespace zoo_tycoon
             }
         }
 
-        private void MenuInterraction()
-        {
-            formInteraction = new FormInteraction();
-            formInteraction.SetDesktopLocation(100, 100);
-            formInteraction.Visible = true;
-            formInteraction.Option1.Click += new System.EventHandler(this.Option1Click);
-            formInteraction.Option2.Click += new System.EventHandler(this.Option2Click);
-            formInteraction.Option3.Click += new System.EventHandler(this.Option3Click);
-        }
+
 
         private void Option3Click(object sender, EventArgs e)
         {
@@ -657,7 +641,17 @@ namespace zoo_tycoon
                 one.payload = AnimalTPS;
                 one.PutBaseImageLocation(new Point(215, 265));
                 one = TheGameController.DuplicateSprite(SpriteName.Ours.ToString());
-                one.PutBaseImageLocation(new Point(100, 100));
+                one.PutBaseImageLocation(new Point(50, 100));
+
+                //one = TheGameController.DuplicateSprite("OURS2");
+                //one.PutBaseImageLocation(new Point(75, 100));
+
+                if (true)
+                {
+
+                    System.Console.WriteLine("Bears only");
+                }
+
             }
             else
             {
@@ -767,21 +761,6 @@ namespace zoo_tycoon
             return Direction.none;
         }
 
-        private void ZooTycoon_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (PlayerCharacter != null)
-            {
-                PlayerSpritePayload PlayerTSP = (PlayerSpritePayload)PlayerCharacter.payload;
-                int soldeFinal = PlayerTSP.Solde;
-                DialogResult result;
-                result = MessageBox.Show("Félicitation! Vous avez terminé avec : " + soldeFinal + "$ en poche!", "Fin de la Partie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    isInteracting = false;
-                }
-            }
-
-        }
 
         private void ZooTycoon_Load(object sender, EventArgs e)
         {

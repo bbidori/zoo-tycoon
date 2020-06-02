@@ -27,7 +27,7 @@ namespace zoo_tycoon
 
         public static int TimeBetweenReplenishVisitors = 15000; //Temps en MS pour ajouter des visiteurs
 
-        public static Size ClotureSize { get { return new Size(120, 140); } }
+        public static Size ClotureSize { get { return new Size(115, 135); } }
 
         public static int TimeGenerateNewTrash = 3000; //Temps en MS pour créer de nouveaux déchets
 
